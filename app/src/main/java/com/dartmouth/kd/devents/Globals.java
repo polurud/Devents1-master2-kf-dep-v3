@@ -15,4 +15,5 @@ public class Globals {
     public static final String KEY_DATE = "date";
     public static final String KEY_START = "start";
     public static final String KEY_END = "end";
+    public static final String KEY_URL = "url";
 }

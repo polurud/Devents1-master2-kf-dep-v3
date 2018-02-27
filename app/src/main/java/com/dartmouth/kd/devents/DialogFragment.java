@@ -8,12 +8,18 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
 import java.util.Calendar;
 
@@ -28,9 +34,10 @@ public class DialogFragment extends android.app.DialogFragment {
     public static final int DIALOG_ID_MANUAL_INPUT_END = 5;
     public static final int DIALOG_ID_MANUAL_INPUT_LOCATION = 6;
     public static final int DIALOG_ID_MANUAL_INPUT_DESCRIPTION = 7;
-
-
-
+    public static final int DIALOG_ID_MANUAL_INPUT_URL = 8;
+    public static final int DIALOG_ID_MANUAL_INPUT_LOCATION_MAP = 9;
+    Context mContext;
+    Intent myIntent;
  private static final String DIALOG_KEY = "dialog_id";
  public static DialogFragment newInstance(int dialog_id) {
   DialogFragment f1 = new DialogFragment();
@@ -47,6 +54,7 @@ public class DialogFragment extends android.app.DialogFragment {
   final EditText textEntryView;
      final Calendar now;
      int hour, minute, year, month, day;
+
 
   switch (dialog_id) {
     case DIALOG_PHOTO:
@@ -133,6 +141,22 @@ public class DialogFragment extends android.app.DialogFragment {
                       }
                   }, hour, minute, false);
 
+      //case DIALOG_ID_MANUAL_INPUT_LOCATION_MAP:
+          //int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+          /*try {
+              Intent intent =
+                      new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                              .build(PlaceAutocomplete);
+              startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+          } catch (GooglePlayServicesRepairableException e) {
+              // TODO: Handle the error.
+          } catch (GooglePlayServicesNotAvailableException e) {
+              // TODO: Handle the error.
+          }*/
+
+          //myIntent = new Intent(getActivity(),  PlaceAutocomplete.class);
+          //startActivityForResult(myIntent, 0);
+
       case DIALOG_ID_MANUAL_INPUT_LOCATION:
 
           textEntryView = new EditText(parent);
@@ -158,6 +182,7 @@ public class DialogFragment extends android.app.DialogFragment {
                                   textEntryView.setText("");
                               }
                           }).create();
+
 
       case DIALOG_ID_MANUAL_INPUT_DESCRIPTION:
 
@@ -185,7 +210,31 @@ public class DialogFragment extends android.app.DialogFragment {
                               }
                           }).create();
 
+      case DIALOG_ID_MANUAL_INPUT_URL:
 
+          textEntryView = new EditText(parent);
+          textEntryView.setInputType(InputType.TYPE_CLASS_TEXT);
+          textEntryView.setHint(R.string.ui_manual_input_url_hint);
+          textEntryView.setLines(4);
+          return new AlertDialog.Builder(parent)
+                  .setTitle(R.string.ui_manual_input_url)
+                  .setView(textEntryView)
+                  .setPositiveButton(R.string.ui_button_ok,
+                          new DialogInterface.OnClickListener() {
+                              public void onClick(DialogInterface dialog,
+                                                  int whichButton) {
+                                  ((CreateCampusEvent) parent).onUrlSet(textEntryView.getText()
+                                          .toString());
+
+                              }
+                          })
+                  .setNegativeButton(R.string.ui_button_cancel,
+                          new DialogInterface.OnClickListener() {
+                              public void onClick(DialogInterface dialog,
+                                                  int whichButton) {
+                                  textEntryView.setText("");
+                              }
+                          }).create();
    default:
     return null;
   }

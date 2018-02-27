@@ -1,8 +1,11 @@
 package com.dartmouth.kd.devents;
 
+import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.AdapterView.OnItemClickListener;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +13,28 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import android.widget.Toast;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 public class CreateCampusEvent extends FragmentActivity {
 
@@ -22,11 +47,31 @@ public class CreateCampusEvent extends FragmentActivity {
     public static final int LIST_ITEM_ID_END = 3;
     public static final int LIST_ITEM_ID_LOCATION = 4;
     public static final int LIST_ITEM_ID_DESCRIPTION = 5;
+    public static final int LIST_ITEM_ID_URL = 6;
+    public static final int LIST_ITEM_ID_LOCATION_MAP = 7;
+    public static final String TAG = "KF";
+    Place myLocation;
+
+    protected GeoDataClient mGeoDataClient;
+    protected PlaceDetectionClient mPlaceDetectionClient;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_campus_event);
+
+        // Construct a GeoDataClient.
+        mGeoDataClient = Places.getGeoDataClient(this, null);
+
+        // Construct a PlaceDetectionClient.
+        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
+        /*mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();*/
 
         listview = (ListView)findViewById(R.id.listview);
         listview.setOnItemClickListener(new OnItemClickListener() {
@@ -34,7 +79,7 @@ public class CreateCampusEvent extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 int dialogId;
-
+                Intent myIntent;
                 // Figuring out what dialog to show based on the position clicked
                 // (more readable, also could use dialogId = position + 2)
                 switch (position) {
@@ -56,6 +101,31 @@ public class CreateCampusEvent extends FragmentActivity {
                     case LIST_ITEM_ID_END:
                         dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_END;
                         break;
+                    case LIST_ITEM_ID_URL:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_URL;
+                        break;
+                    //case LIST_ITEM_ID_LOCATION_MAP:
+
+                        /*PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+                        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                            @Override
+                            public void onPlaceSelected(Place place) {
+                                // TODO: Get info about the selected place.
+                                Log.i(TAG, "Place: " + place.getName());
+                            }
+
+                            @Override
+                            public void onError(Status status) {
+                                // TODO: Handle the error.
+                                Log.i(TAG, "An error occurred: " + status);
+                            }
+                        });
+
+                        //dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_LOCATION_MAP;
+                        break;
+                        */
                     default:
                         dialogId = DialogFragment.DIALOG_ID_ERROR;
                 }
@@ -63,6 +133,25 @@ public class CreateCampusEvent extends FragmentActivity {
                 displayDialog(dialogId);
             }
         });
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+                myLocation = place;
+
+            }
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
 
         newEvent = new CampusEvent();
         mEventDbHelper = new CampusEventDbHelper(this);
@@ -102,8 +191,19 @@ public class CreateCampusEvent extends FragmentActivity {
         newEvent.setmLocation(location);
     }
 
+    public void onLongitudeSet(Double longitude) {
+        newEvent.setmLongitude(longitude);
+    }
+    public void onLatitudeSet(Double latitude) {
+        newEvent.setmLatitude(latitude);
+    }
+
     public void onDescriptionSet(String description) {
         newEvent.setmDescription(description);
+    }
+
+    public void onUrlSet(String url) {
+        newEvent.setmUrl(url);
     }
 
     public void onDateSet(int year, int monthOfYear, int dayOfMonth) {

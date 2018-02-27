@@ -30,7 +30,9 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     public static final String KEY_END = "event_end";
     public static final String KEY_LOCATION = "event_location";
     public static final String KEY_DESCRIPTION = "event_description";
-
+    public static final String KEY_URL = "event_url";
+    public static final String KEY_LATITUDE = "event_lat";
+    public static final String KEY_LONGITUDE = "event_long";
 
     // SQL query to create the table for the first time
     // Data types are defined below
@@ -50,12 +52,18 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             + KEY_LOCATION
             + " TEXT, "
             + KEY_DESCRIPTION
-            + " TEXT "
+            + " TEXT, "
+            + KEY_URL
+            + " TEXT, "
+            + KEY_LATITUDE
+            + " DOUBLE, "
+            + KEY_LONGITUDE
+            + " DOUBLE "
             + ");";
 
     private static final String[] mColumnList = new String[]{KEY_ROWID,
             KEY_TITLE, KEY_DATE, KEY_START, KEY_END,
-            KEY_LOCATION, KEY_DESCRIPTION};
+            KEY_LOCATION, KEY_DESCRIPTION, KEY_URL, KEY_LATITUDE, KEY_LONGITUDE};
 
     public CampusEventDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -84,8 +92,9 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
         value.put(KEY_LOCATION, event.getmLocation());
         value.put(KEY_DESCRIPTION, event.getmDescription());
-
-
+        value.put(KEY_URL, event.getmUrl());
+        value.put(KEY_LATITUDE, event.getmLatitude());
+        value.put(KEY_LONGITUDE, event.getmLongitude());
         SQLiteDatabase dbObj = getWritableDatabase();
         long id = dbObj.insert(TABLE_EVENT_ENTRIES, null, value);
         dbObj.close();
@@ -148,8 +157,10 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
         //event.setmEnd(cursor.getLong(cursor.getColumnIndex(KEY_END)));
         event.setmLocation(cursor.getString(cursor.getColumnIndex(KEY_LOCATION)));
         event.setmDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
-
-
+        event.setmUrl(cursor.getString(cursor.getColumnIndex(KEY_URL)));
+        //Long location = cursor.getColumnIndex(KEY_LOCATION_PIN);
+        event.setmLatitude(cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)));
+        event.setmLongitude(cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)));
         return event;
     }
 }

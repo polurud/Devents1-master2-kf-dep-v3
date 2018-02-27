@@ -34,6 +34,7 @@ public class DisplayEventActivity extends Activity {
             ((EditText) findViewById(R.id.editDispEnd)).setText(extras.getString(Globals.KEY_END));
             ((EditText) findViewById(R.id.editDispLocation)).setText(extras.getString(Globals.KEY_LOCATION));
             ((EditText) findViewById(R.id.editDispDescription)).setText(extras.getString(Globals.KEY_DESCRIPTION));
+            ((EditText) findViewById(R.id.editDispUrl)).setText(extras.getString(Globals.KEY_URL));
         }
     }
 

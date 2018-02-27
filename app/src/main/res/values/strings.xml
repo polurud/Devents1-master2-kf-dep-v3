@@ -92,6 +92,7 @@
         <item>End</item>
         <item>Location</item>
         <item>Description</item>
+        <item>URL</item>
     </string-array>
 
     <string name="Select_GreekSociety">Select Greek Society</string>
@@ -138,8 +139,6 @@
     </string-array>
 
 
-
-
     <string-array name="program">
         <item>Undergraduate</item>
         <item>Graduate Masters</item>
@@ -170,6 +169,8 @@
     <string name="ui_manual_input_title">Event Title</string>
     <string name="ui_manual_input_description_hint">ex. Join us for our weekly meeting featuring free tuk tuk...</string>
     <string name="ui_manual_input_description">Event Description</string>
+    <string name="ui_manual_input_url_hint">ex. https://news.dartmouth.edu/events/event?event=49881#.WpTOOxPwbGI</string>
+    <string name="ui_manual_input_url">Event URL</string>
     <string name="ui_button_ok">Ok</string>
     <string name="ui_button_save">Save</string>
     <string name="ui_button_cancel">Cancel</string>

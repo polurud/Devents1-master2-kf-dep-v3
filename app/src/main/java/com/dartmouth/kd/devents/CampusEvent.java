@@ -1,6 +1,11 @@
 package com.dartmouth.kd.devents;
 
+import android.location.Location;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import java.net.URL;
+import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -17,8 +22,9 @@ public class CampusEvent {
     private Calendar mDate;
     private Calendar mStart;
     private Calendar mEnd;
-    private URL mUrl;
-
+    private String mUrl;
+    private Double mLatitude;
+    private Double mLongitude;
 
     public CampusEvent(){
         this.mTitle = "";
@@ -27,7 +33,9 @@ public class CampusEvent {
         this.mDate = Calendar.getInstance();
         this.mStart = Calendar.getInstance();
         this.mEnd = Calendar.getInstance();
-        this.mUrl = null;
+        this.mUrl = "";
+        this.mLatitude = null;
+        this.mLongitude = null;
 
 
     }
@@ -54,6 +62,22 @@ public class CampusEvent {
 
     public void setmLocation(String location) {
         this.mLocation = location;
+    }
+
+    public Double getmLatitude() {
+        return mLatitude;
+    }
+
+    public void setmLatitude(Double latitude) {
+        this.mLatitude = latitude;
+    }
+
+    public Double getmLongitude() {
+        return mLongitude;
+    }
+
+    public void setmLongitude(Double longitude) {
+        this.mLongitude = longitude;
     }
 
     public String getmDescription() {
@@ -106,11 +130,11 @@ public class CampusEvent {
         return mEnd;
     }
 
-    public URL getmUrl() {
+    public String getmUrl() {
         return mUrl;
     }
 
-    public void setmUrl(URL url) {
+    public void setmUrl(String url) {
         this.mUrl = url;
     }
 
