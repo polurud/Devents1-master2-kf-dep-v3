@@ -1,6 +1,7 @@
 package com.dartmouth.kd.devents;
 
 /**
+ * Based on MyRuns Functionality
  * Created by kathrynflattum on 2/25/18.
  */
 

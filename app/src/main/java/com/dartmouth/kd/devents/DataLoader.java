@@ -1,6 +1,8 @@
 package com.dartmouth.kd.devents;
 
 /**
+ * Based on MyRuns DataLoader
+ *
  * Created by kathrynflattum on 2/25/18.
  */
 
@@ -23,11 +25,11 @@ public class DataLoader extends AsyncTaskLoader<ArrayList<CampusEvent>> {
 
     @Override
     public ArrayList<CampusEvent> loadInBackground() {
-        Log.d("TAGG","Started");
+        Log.d(Globals.TAGG,"Started");
         CampusEventDbHelper mCampusEventDbHelper = new CampusEventDbHelper(mContext);
         ArrayList<CampusEvent> eventsList = mCampusEventDbHelper
                 .fetchEvents();
-        Log.d("TAGG","Finished");
+        Log.d(Globals.TAGG,"Finished");
 
         return eventsList;
     }

@@ -1,5 +1,12 @@
 package com.dartmouth.kd.devents;
 
+/*
+*Based on Google Maps code taught in class by Professor XD
+* Implementing Google "Places" with reference from
+* https://developers.google.com/places/android-api/start
+http://android-er.blogspot.com/2013/02/convert-between-latlng-and-location.html
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -64,10 +71,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d("kf", "map ready ");
-        //mMap.setOnMapClickListener(this);
-        //mMap.setOnMapLongClickListener(this);
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
+
+        //WHY DOES THIS NOT WORK?????
         //Move the camera instantly to around Hanover with a zoom of 15.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HANOVER, 15));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
@@ -79,57 +86,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             long id = event.getmId();
             float fid = id;
             double lat = event.getmLatitude();
-            Log.d("KF", "lat getting set " + lat);
+            Log.d(TAG, "lat getting set " + lat);
             double longi = event.getmLongitude();
-            Log.d("kf", "long getting set" + longi);
+            Log.d(TAG, "long getting set" + longi);
             String mTitle = event.getmTitle();
             Marker mMarker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(lat, longi))
                     .title(mTitle));
             mMarker.setZIndex(fid);
             mMarker.showInfoWindow();
-            //addEventPins(mMap);
         }
 
 
     }
-
-    /*//get all of the events stored in the SQLite database and add them to the map as pins
-    public void addEventPins(Map map){
-        mDbHelper = new CampusEventDbHelper(this);
-
-        List<CampusEvent> allEvents = mDbHelper.fetchEvents();
-        for (CampusEvent event : allEvents) {
-            long id = event.getmId();
-            double lat = event.getmLatitude();
-            double longi = event.getmLongitude();
-            map.addMarker(new MarkerOptions()
-                    .position(new LatLng(10, 10))
-                    .title("Hello world"));
-            //create a pin
-        }
-    }
-
-    @Override
-    public void onMapClick(LatLng point) {
-        tvLocInfo.setText(point.toString());
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(point));
-
-        markerClicked = false;
-    }
-
-    @Override
-    public void onMapLongClick(LatLng point) {
-
-        //don't really want to do anything here
-        /*tvLocInfo.setText("New marker added@" + point.toString());
-        mMap.addMarker(new MarkerOptions().position(point).title(point.toString()));
-        Toast.makeText(getApplicationContext(), "Event location added",
-                Toast.LENGTH_SHORT).show();
-        markerClicked = false;
-    }
-    */
-
 
 
     @Override
@@ -137,7 +106,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(markerClicked) {
             marker.showInfoWindow();
-
         }
         return true;
     }
@@ -146,9 +114,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onInfoWindowClick(Marker marker) {
         float fid = marker.getZIndex();
         long id = (long)fid;
-        //going to show the event associated with the marker
-        //Intent intent = new Intent(getActivity(), DisplayEventActivity.class);
-        //intent.putExtra(Globals.KEY_ROWID,id);
+
+        //going to show the Campus Event associated with the marker
+
         Intent intent = new Intent(); // The intent to launch the activity after
         // click.
         Bundle extras = new Bundle(); // The extra information needed pass
@@ -166,6 +134,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Utils.parseEnd(event.getmDateTimeInMillis(), mContext));
         extras.putString(Globals.KEY_LOCATION,event.getmLocation());
         extras.putString(Globals.KEY_DESCRIPTION,event.getmDescription());
+        extras.putString(Globals.KEY_URL,event.getmUrl());
         extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
         extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
 

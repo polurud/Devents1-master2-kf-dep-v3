@@ -2,10 +2,12 @@ package com.dartmouth.kd.devents;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
-
+import android.widget.Toast;
 
 
 // Display a campus event
@@ -38,6 +40,23 @@ public class DisplayEventActivity extends Activity {
         }
     }
 
+    // "Save to MyDEvents" button is clicked
+    public void onSavetoMyDEvents(View v) {
+        //new InsertIntoDbTask().execute(newEvent);
+        //Log.d(Globals.TAGG, "Saving to my devents ");
+        Toast.makeText(this, "Saved to My DEvents", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    /*
+     * Handle the back button
+     */
+    public void onBackClicked(View view) {
+        // close
+        finish();
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -58,6 +77,8 @@ public class DisplayEventActivity extends Activity {
 
                 finish();
                 return true;
+
+            //case MENU_ID_SAVE_DEVENTS:
 
             default:
                 finish();

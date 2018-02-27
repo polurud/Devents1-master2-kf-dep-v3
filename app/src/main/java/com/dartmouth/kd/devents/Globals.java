@@ -6,7 +6,7 @@ package com.dartmouth.kd.devents;
 
 public class Globals {
 
-    public static final String TAG = "DEvents";
+    public static final String TAGG = "DEvents";
     // Table schema, column names
     public static final String KEY_ROWID = "_id";
     public static final String KEY_TITLE = "title";
