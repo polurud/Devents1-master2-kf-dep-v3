@@ -1,5 +1,7 @@
 package com.dartmouth.kd.devents;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.graphics.Color;
@@ -23,26 +25,28 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.List;
+import java.util.Map;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerClickListener{
+
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener{
 
     private GoogleMap mMap;
     TextView tvLocInfo;
-
+    private Context mContext;
     boolean markerClicked;
     PolylineOptions rectOptions;
     Polyline polyline;
     static final LatLng HANOVER = new LatLng(43.7022, 72.2896);
+    private CampusEventDbHelper mDbHelper;
+    private String TAG = "KF";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("TAGG","Made it in maps activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        tvLocInfo = (TextView)findViewById(R.id.locinfo);
+        setUpMap();
     }
 
 
@@ -60,13 +64,50 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d("kf", "map ready ");
-        Log.d("TAGG","Made it in on map ready");
+        Log.d("TAGG", "Made it in on map ready");
         mMap.setOnMapClickListener(this);
         mMap.setOnMapLongClickListener(this);
         mMap.setOnMarkerClickListener(this);
-        //Move the camera instantly to the best city in the world! with a zoom of 15.
+        //Move the camera instantly to around Hanover with a zoom of 15.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HANOVER, 15));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+
+        mDbHelper = new CampusEventDbHelper(this);
+
+        List<CampusEvent> allEvents = mDbHelper.fetchEvents();
+        for (CampusEvent event : allEvents) {
+            long id = event.getmId();
+            double lat = event.getmLatitude();
+            Log.d("KF", "lat getting set " + lat);
+            double longi = event.getmLongitude();
+            Log.d("kf", "long getting set" + longi);
+            String mTitle = event.getmTitle();
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(lat, longi))
+                    .title(mTitle));
+
+            //addEventPins(mMap);
+        }
+
+        mMap.setOnInfoWindowClickListener(this);
+    }
+
+
+    //get all of the events stored in the SQLite database and add them to the map as pins
+    public void addEventPins(Map map){
+        mDbHelper = new CampusEventDbHelper(this);
+
+        List<CampusEvent> allEvents = mDbHelper.fetchEvents();
+        for (CampusEvent event : allEvents) {
+            long id = event.getmId();
+            double lat = event.getmLatitude();
+            double longi = event.getmLongitude();
+            /*map.addMarker(new MarkerOptions()
+                    .position(new LatLng(10, 10))
+                    .title("Hello world"));*/
+            //create a pin
+        }
+
     }
 
     @Override
@@ -86,16 +127,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         markerClicked = false;
     }
 
+
+
     @Override
     public boolean onMarkerClick(Marker marker) {
 
         if(markerClicked) {
-
+            //marker.
             //going to show the event associated with the marker
+            //Intent intent = new Intent();
+            //intent.putExtra(Globals.KEY_ROWID, )
         }
         return true;
     }
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(this, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void setUpMap() {
+        if (mMap == null) {
+            Log.d(TAG, "Map is being setup");
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(com.dartmouth.kd.devents.R.id.map);
+            mapFragment.getMapAsync(this);
+        }
+    }
 
     public void onLocationChanged(Location location){}
     public void onProviderDisabled(String provider) {}

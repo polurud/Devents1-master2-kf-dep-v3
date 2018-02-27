@@ -50,14 +50,18 @@ public class CreateCampusEvent extends FragmentActivity {
     public static final int LIST_ITEM_ID_URL = 6;
     public static final int LIST_ITEM_ID_LOCATION_MAP = 7;
     public static final String TAG = "KF";
-    Place myLocation;
 
+    Place myLocation;
     protected GeoDataClient mGeoDataClient;
     protected PlaceDetectionClient mPlaceDetectionClient;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_campus_event);
 
@@ -66,12 +70,6 @@ public class CreateCampusEvent extends FragmentActivity {
 
         // Construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
-        /*mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();*/
 
         listview = (ListView)findViewById(R.id.listview);
         listview.setOnItemClickListener(new OnItemClickListener() {
@@ -134,6 +132,8 @@ public class CreateCampusEvent extends FragmentActivity {
             }
         });
 
+        newEvent = new CampusEvent();
+        mEventDbHelper = new CampusEventDbHelper(this);
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
@@ -143,6 +143,11 @@ public class CreateCampusEvent extends FragmentActivity {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
                 myLocation = place;
+                LatLng latlng1 = myLocation.getLatLng();
+                newEvent.setmLatitude(latlng1.latitude);
+                newEvent.setmLongitude(latlng1.longitude);
+                Log.i(TAG, "Showing lat " + latlng1.latitude);
+                Log.i(TAG, "Showing long " + latlng1.longitude);
 
             }
             @Override
@@ -152,9 +157,6 @@ public class CreateCampusEvent extends FragmentActivity {
             }
         });
 
-
-        newEvent = new CampusEvent();
-        mEventDbHelper = new CampusEventDbHelper(this);
     }
 
 
@@ -162,6 +164,8 @@ public class CreateCampusEvent extends FragmentActivity {
     public void onSaveClicked(View v) {
 
         new InsertIntoDbTask().execute(newEvent);
+        Log.i(TAG, "Showing lat3 " + newEvent.getmLatitude());
+        Log.i(TAG, "Showing long3" + newEvent.getmLongitude());
         finish();
     }
 
