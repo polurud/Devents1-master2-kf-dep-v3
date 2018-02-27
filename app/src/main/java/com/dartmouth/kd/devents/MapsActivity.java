@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener{
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener{
 
     private GoogleMap mMap;
     TextView tvLocInfo;
@@ -64,10 +64,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d("kf", "map ready ");
-        Log.d("TAGG", "Made it in on map ready");
-        mMap.setOnMapClickListener(this);
-        mMap.setOnMapLongClickListener(this);
+        //mMap.setOnMapClickListener(this);
+        //mMap.setOnMapLongClickListener(this);
         mMap.setOnMarkerClickListener(this);
+        mMap.setOnInfoWindowClickListener(this);
         //Move the camera instantly to around Hanover with a zoom of 15.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HANOVER, 15));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
@@ -77,23 +77,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         List<CampusEvent> allEvents = mDbHelper.fetchEvents();
         for (CampusEvent event : allEvents) {
             long id = event.getmId();
+            float fid = id;
             double lat = event.getmLatitude();
             Log.d("KF", "lat getting set " + lat);
             double longi = event.getmLongitude();
             Log.d("kf", "long getting set" + longi);
             String mTitle = event.getmTitle();
-            mMap.addMarker(new MarkerOptions()
+            Marker mMarker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(lat, longi))
                     .title(mTitle));
-
+            mMarker.setZIndex(fid);
+            mMarker.showInfoWindow();
             //addEventPins(mMap);
         }
 
-        mMap.setOnInfoWindowClickListener(this);
+
     }
 
-
-    //get all of the events stored in the SQLite database and add them to the map as pins
+    /*//get all of the events stored in the SQLite database and add them to the map as pins
     public void addEventPins(Map map){
         mDbHelper = new CampusEventDbHelper(this);
 
@@ -102,12 +103,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             long id = event.getmId();
             double lat = event.getmLatitude();
             double longi = event.getmLongitude();
-            /*map.addMarker(new MarkerOptions()
+            map.addMarker(new MarkerOptions()
                     .position(new LatLng(10, 10))
-                    .title("Hello world"));*/
+                    .title("Hello world"));
             //create a pin
         }
-
     }
 
     @Override
@@ -120,12 +120,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapLongClick(LatLng point) {
-        tvLocInfo.setText("New marker added@" + point.toString());
+
+        //don't really want to do anything here
+        /*tvLocInfo.setText("New marker added@" + point.toString());
         mMap.addMarker(new MarkerOptions().position(point).title(point.toString()));
         Toast.makeText(getApplicationContext(), "Event location added",
                 Toast.LENGTH_SHORT).show();
         markerClicked = false;
     }
+    */
 
 
 
@@ -133,18 +136,46 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onMarkerClick(Marker marker) {
 
         if(markerClicked) {
-            //marker.
-            //going to show the event associated with the marker
-            //Intent intent = new Intent();
-            //intent.putExtra(Globals.KEY_ROWID, )
+            marker.showInfoWindow();
+
         }
         return true;
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Toast.makeText(this, "Info window clicked",
-                Toast.LENGTH_SHORT).show();
+        float fid = marker.getZIndex();
+        long id = (long)fid;
+        //going to show the event associated with the marker
+        //Intent intent = new Intent(getActivity(), DisplayEventActivity.class);
+        //intent.putExtra(Globals.KEY_ROWID,id);
+        Intent intent = new Intent(); // The intent to launch the activity after
+        // click.
+        Bundle extras = new Bundle(); // The extra information needed pass
+        // through to next activity.
+        CampusEvent event = mDbHelper.fetchEventByIndex(id);
+        // Write row id into extras.
+        extras.putLong(Globals.KEY_ROWID, event.getmId());
+        // Passing information for display in the DisaplayEntryActivity.
+        extras.putString(Globals.KEY_TITLE,event.getmTitle());
+        extras.putString(Globals.KEY_DATE,
+                Utils.parseDate(event.getmDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_START,
+                Utils.parseStart(event.getmDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_END,
+                Utils.parseEnd(event.getmDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_LOCATION,event.getmLocation());
+        extras.putString(Globals.KEY_DESCRIPTION,event.getmDescription());
+        extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
+        extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
+
+
+        // Manual mode requires DisplayEntryActivity
+        intent.setClass(this, DisplayEventActivity.class);
+
+        // start the activity
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 

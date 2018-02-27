@@ -16,4 +16,6 @@ public class Globals {
     public static final String KEY_START = "start";
     public static final String KEY_END = "end";
     public static final String KEY_URL = "url";
+    public static final String KEY_LATITUDE = "latitude";
+    public static final String KEY_LONGITUDE = "longitude";
 }

@@ -119,7 +119,8 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
                         Utils.parseEnd(event.getmDateTimeInMillis(), mContext));
                 extras.putString(Globals.KEY_LOCATION,event.getmLocation());
                 extras.putString(Globals.KEY_DESCRIPTION,event.getmDescription());
-
+                extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
+                extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
 
 
                 // Manual mode requires DisplayEntryActivity

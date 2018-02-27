@@ -48,13 +48,11 @@ public class CreateCampusEvent extends FragmentActivity {
     public static final int LIST_ITEM_ID_LOCATION = 4;
     public static final int LIST_ITEM_ID_DESCRIPTION = 5;
     public static final int LIST_ITEM_ID_URL = 6;
-    public static final int LIST_ITEM_ID_LOCATION_MAP = 7;
     public static final String TAG = "KF";
 
     Place myLocation;
     protected GeoDataClient mGeoDataClient;
     protected PlaceDetectionClient mPlaceDetectionClient;
-    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,28 +100,6 @@ public class CreateCampusEvent extends FragmentActivity {
                     case LIST_ITEM_ID_URL:
                         dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_URL;
                         break;
-                    //case LIST_ITEM_ID_LOCATION_MAP:
-
-                        /*PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-                        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                            @Override
-                            public void onPlaceSelected(Place place) {
-                                // TODO: Get info about the selected place.
-                                Log.i(TAG, "Place: " + place.getName());
-                            }
-
-                            @Override
-                            public void onError(Status status) {
-                                // TODO: Handle the error.
-                                Log.i(TAG, "An error occurred: " + status);
-                            }
-                        });
-
-                        //dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_LOCATION_MAP;
-                        break;
-                        */
                     default:
                         dialogId = DialogFragment.DIALOG_ID_ERROR;
                 }
