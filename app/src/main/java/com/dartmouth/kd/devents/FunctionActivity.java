@@ -29,6 +29,8 @@ public class FunctionActivity extends AppCompatActivity {
         Log.d("TAGG","Made it in function activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
+        EventUploader eu = new EventUploader(this);
+        //eu.syncBackend();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tab);

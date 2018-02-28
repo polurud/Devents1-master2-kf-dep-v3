@@ -86,6 +86,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
         value.put(KEY_TITLE, event.getmTitle());
         value.put(KEY_DATE, event.getmDateTimeInMillis());
+
         //THIS NEEDS TO BE CHANGED
         value.put(KEY_START, event.getmDateTimeInMillis());
         value.put(KEY_END, event.getmDateTimeInMillis());
@@ -151,10 +152,8 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
         event.setmId(cursor.getLong(cursor.getColumnIndex(KEY_ROWID)));
         event.setmDateTime(cursor.getLong(cursor.getColumnIndex(KEY_DATE)));
         event.setmTitle(cursor.getString(cursor.getColumnIndex(KEY_TITLE)));
-        Long start = cursor.getLong(cursor.getColumnIndex(KEY_START));
-        String startString = start.toString();
-        //event.setmStart(startString);
-        //event.setmEnd(cursor.getLong(cursor.getColumnIndex(KEY_END)));
+        event.setmStart(cursor.getLong(cursor.getColumnIndex(KEY_START)));
+        event.setmEnd(cursor.getLong(cursor.getColumnIndex(KEY_END)));
         event.setmLocation(cursor.getString(cursor.getColumnIndex(KEY_LOCATION)));
         event.setmDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
         event.setmUrl(cursor.getString(cursor.getColumnIndex(KEY_URL)));

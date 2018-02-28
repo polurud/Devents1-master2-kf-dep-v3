@@ -27,6 +27,8 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.SimpleDateFormat;
+
 
 public class CreateCampusEvent extends FragmentActivity {
 

@@ -107,13 +107,16 @@ public class CampusEvent {
 
     public void setmDateTime(long timestamp) {
         this.mDate.setTimeInMillis(timestamp);
-
     }
 
     public void setmStart(int hourOfDay, int minute) {
         mStart.set(Calendar.HOUR_OF_DAY, hourOfDay);
         mStart.set(Calendar.MINUTE, minute);
         mStart.set(Calendar.SECOND, 0);
+    }
+
+    public void setmStart(long timestamp){
+        this.mDate.setTimeInMillis(timestamp);
     }
 
     public Calendar getmStart() {
@@ -124,6 +127,10 @@ public class CampusEvent {
         mEnd.set(Calendar.HOUR_OF_DAY, hourOfDay);
         mEnd.set(Calendar.MINUTE, minute);
         mEnd.set(Calendar.SECOND, 0);
+    }
+
+    public void setmEnd(long timestamp){
+        this.mDate.setTimeInMillis(timestamp);
     }
 
     public Calendar getmEnd() {
