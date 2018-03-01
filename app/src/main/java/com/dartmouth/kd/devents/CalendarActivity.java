@@ -57,6 +57,9 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
 
         mContext = getActivity();
 
+        EventUploader eu = new EventUploader(mContext);
+        eu.syncBackend();
+
         // Open data base for operations.
         mCampusEventDbHelper = new CampusEventDbHelper(mContext);
         loaderManager = getActivity().getLoaderManager();

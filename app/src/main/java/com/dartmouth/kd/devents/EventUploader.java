@@ -33,6 +33,7 @@ public class EventUploader implements ValueEventListener {
     private Context mContext;
     private String userID = "userID";
     private String entryID = "entry";
+    private CampusEvent event;
     public EventUploader(Context context) {
         this.mContext = context.getApplicationContext();
     }
@@ -40,13 +41,36 @@ public class EventUploader implements ValueEventListener {
 
     public void fetchAllBackend(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        Log.d(Globals.TAGG, "Getting into fetch backend");
         //mDatabase.
+       // ValueEventListener postListener = new ValueEventListener(mContext);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(Globals.TAGG, "On data change is getting called");
+                if(dataSnapshot.hasChildren()) {
+                    Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
+                    Iterator<DataSnapshot> iterator = iterable.iterator();
+                    DataSnapshot snapshot = iterator.next();
+                    //Object val = snapshot.getValue();
+                    //val.
+                    //CampusEvent event = snapshot.getRef();
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
 
     public void syncBackend() {
         //removeDataFromDatabase();
+        Log.d(Globals.TAGG, "sync backend is getting called");
+        fetchAllBackend();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -90,7 +114,7 @@ public class EventUploader implements ValueEventListener {
             Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
             Iterator<DataSnapshot> iterator = iterable.iterator();
             DataSnapshot snapshot = iterator.next();
-            snapshot.getRef().removeValue();
+            //snapshot.getRef().removeValue();
         }
     }
 

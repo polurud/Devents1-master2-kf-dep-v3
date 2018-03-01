@@ -3,6 +3,7 @@ package com.dartmouth.kd.devents;
 import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.Exclude;
 
 import java.net.URL;
 import java.nio.DoubleBuffer;
@@ -88,6 +89,7 @@ public class CampusEvent {
         this.mDescription = description;
     }
 
+    @Exclude
     public Calendar getmDate() {
         return mDate;
     }
@@ -100,6 +102,7 @@ public class CampusEvent {
         return mDate.getTimeInMillis();
     }
 
+
     public void setmDateTime(Calendar dateTime) {
         this.mDate = dateTime;
 
@@ -108,6 +111,7 @@ public class CampusEvent {
     public void setmDateTime(long timestamp) {
         this.mDate.setTimeInMillis(timestamp);
     }
+
 
     public void setmStart(int hourOfDay, int minute) {
         mStart.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -119,9 +123,11 @@ public class CampusEvent {
         this.mDate.setTimeInMillis(timestamp);
     }
 
+    @Exclude
     public Calendar getmStart() {
         return mStart;
     }
+
 
     public void setmEnd(int hourOfDay, int minute) {
         mEnd.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -133,6 +139,7 @@ public class CampusEvent {
         this.mDate.setTimeInMillis(timestamp);
     }
 
+    @Exclude
     public Calendar getmEnd() {
         return mEnd;
     }

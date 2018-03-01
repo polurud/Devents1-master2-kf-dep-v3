@@ -136,6 +136,8 @@ public class CreateCampusEvent extends FragmentActivity {
         new InsertIntoDbTask().execute(newEvent);
         Log.i(TAG, "Showing lat3 " + newEvent.getmLatitude());
         Log.i(TAG, "Showing long3" + newEvent.getmLongitude());
+        EventUploader eu = new EventUploader(this);
+        eu.syncBackend();
         finish();
     }
 
