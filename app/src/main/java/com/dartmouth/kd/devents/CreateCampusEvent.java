@@ -42,6 +42,21 @@ public class CreateCampusEvent extends FragmentActivity {
     public static final int LIST_ITEM_ID_LOCATION = 4;
     public static final int LIST_ITEM_ID_DESCRIPTION = 5;
     public static final int LIST_ITEM_ID_URL = 6;
+    public static final int LIST_ITEM_ID_FOOD = 7;
+    public static final int LIST_ITEM_ID_EVENT_TYPE = 8;
+    public static final int LIST_ITEM_ID_PROGRAM_TYPE = 9;
+    public static final int LIST_ITEM_ID_YEAR = 10;
+    public static final int LIST_ITEM_ID_MAJOR = 11;
+    public static final int LIST_ITEM_ID_GREEK_SOCIETY = 12;
+    public static final int LIST_ITEM_ID_GENDER = 13;
+
+    private int mFood;
+    private String mEventType;
+    private String mProgramType;
+    private String mYear;
+    private String mMajor;
+    private String mGreekSociety;
+    private String mGender;
     public static final String TAG = "KF";
 
     Place myLocation;
@@ -93,6 +108,27 @@ public class CreateCampusEvent extends FragmentActivity {
                         break;
                     case LIST_ITEM_ID_URL:
                         dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_URL;
+                        break;
+                    case LIST_ITEM_ID_FOOD:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_FOOD;
+                        break;
+                    case LIST_ITEM_ID_EVENT_TYPE:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_EVENT_TYPE;
+                        break;
+                    case LIST_ITEM_ID_PROGRAM_TYPE:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_PROGRAM_TYPE;
+                        break;
+                    case LIST_ITEM_ID_YEAR:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_YEAR;
+                        break;
+                    case LIST_ITEM_ID_MAJOR:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_MAJOR;
+                        break;
+                    case LIST_ITEM_ID_GREEK_SOCIETY:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_GREEK_SOCIETY;
+                        break;
+                    case LIST_ITEM_ID_GENDER:
+                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_GENDER;
                         break;
                     default:
                         dialogId = DialogFragment.DIALOG_ID_ERROR;
@@ -194,6 +230,34 @@ public class CreateCampusEvent extends FragmentActivity {
         newEvent.setmEnd(hourOfDay, minute);
     }
 
+
+    public void onEventTypeSet(String eventType) {
+        newEvent.setmEventType(eventType);
+    }
+
+    public void onProgramTypeSet(String programType) {
+        newEvent.setmProgramType(programType);
+    }
+
+    public void onMajorSet(String major) {
+        newEvent.setmMajor(major);
+    }
+
+    public void onGenderSet(String gender) {
+        newEvent.setmGender(gender);
+    }
+
+    public void onGreekSocietySet(String greekSociety) {
+        newEvent.setmGreekSociety(greekSociety);
+    }
+
+    public void onYearSet(String year) {
+        newEvent.setmYear(year);
+    }
+
+    public void onFoodSet(int food) {
+        newEvent.setmFood(food);
+    }
 
     public class InsertIntoDbTask extends AsyncTask<CampusEvent, Void, String> {
         @Override

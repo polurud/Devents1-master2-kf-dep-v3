@@ -36,6 +36,13 @@ public class DialogFragment extends android.app.DialogFragment {
     public static final int DIALOG_ID_MANUAL_INPUT_DESCRIPTION = 7;
     public static final int DIALOG_ID_MANUAL_INPUT_URL = 8;
     public static final int DIALOG_ID_MANUAL_INPUT_LOCATION_MAP = 9;
+    public static final int DIALOG_ID_MANUAL_INPUT_FOOD = 10;
+    public static final int DIALOG_ID_MANUAL_INPUT_EVENT_TYPE = 11;
+    public static final int DIALOG_ID_MANUAL_INPUT_PROGRAM_TYPE = 12;
+    public static final int DIALOG_ID_MANUAL_INPUT_YEAR= 13;
+    public static final int DIALOG_ID_MANUAL_INPUT_MAJOR = 14;
+    public static final int DIALOG_ID_MANUAL_INPUT_GREEK_SOCIETY = 15;
+    public static final int DIALOG_ID_MANUAL_INPUT_GENDER = 16;
     Context mContext;
     Intent myIntent;
  private static final String DIALOG_KEY = "dialog_id";
@@ -141,21 +148,6 @@ public class DialogFragment extends android.app.DialogFragment {
                       }
                   }, hour, minute, false);
 
-      //case DIALOG_ID_MANUAL_INPUT_LOCATION_MAP:
-          //int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-          /*try {
-              Intent intent =
-                      new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                              .build(PlaceAutocomplete);
-              startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-          } catch (GooglePlayServicesRepairableException e) {
-              // TODO: Handle the error.
-          } catch (GooglePlayServicesNotAvailableException e) {
-              // TODO: Handle the error.
-          }*/
-
-          //myIntent = new Intent(getActivity(),  PlaceAutocomplete.class);
-          //startActivityForResult(myIntent, 0);
 
       case DIALOG_ID_MANUAL_INPUT_LOCATION:
 
@@ -235,6 +227,21 @@ public class DialogFragment extends android.app.DialogFragment {
                                   textEntryView.setText("");
                               }
                           }).create();
+
+      case DIALOG_ID_MANUAL_INPUT_MAJOR:
+
+          AlertDialog.Builder builder2 = new AlertDialog.Builder(parent);
+          builder2.setTitle("Choose the relevant major");
+
+          builder2.setItems(R.array.ui_profile_photo_selection,
+                  new DialogInterface.OnClickListener() {
+                      public void onClick(DialogInterface dialog, int item) {
+
+                          // ((UserProfile) parent).onPhotoPickerItemSelected(item);
+                      }
+                  });
+          return builder2.create();
+
    default:
     return null;
   }

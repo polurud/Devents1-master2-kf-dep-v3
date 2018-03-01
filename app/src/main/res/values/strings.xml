@@ -181,4 +181,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="create_event_audience_preferences">
+        <item>Food</item>
+        <item>Event Type</item>
+        <item>Program Type</item>
+        <item>Year</item>
+        <item>Major</item>
+        <item>Greek Society</item>
+        <item>Gender</item>
+    </string-array>
 </resources>

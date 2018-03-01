@@ -26,6 +26,13 @@ public class CampusEvent {
     private String mUrl;
     private Double mLatitude;
     private Double mLongitude;
+    private int mFood;
+    private String mEventType;
+    private String mProgramType;
+    private String mYear;
+    private String mMajor;
+    private String mGreekSociety;
+    private String mGender;
 
     public CampusEvent(){
         this.mTitle = "";
@@ -37,6 +44,13 @@ public class CampusEvent {
         this.mUrl = "";
         this.mLatitude = null;
         this.mLongitude = null;
+        this.mFood = 0;
+        this.mEventType = "";
+        this.mProgramType = "";
+        this.mYear = "";
+        this.mMajor = "";
+        this.mGender = "";
+        this.mGreekSociety="";
 
 
     }
@@ -150,6 +164,62 @@ public class CampusEvent {
 
     public void setmUrl(String url) {
         this.mUrl = url;
+    }
+
+    public int getmFood(){
+        return mFood;
+    }
+
+    public void setmFood(int food){
+        this.mFood = food;
+    }
+
+    public String getmEventType() {
+        return mEventType;
+    }
+
+    public void setmEventType(String eventType) {
+        this.mEventType = eventType;
+    }
+
+    public String getmProgramType() {
+        return mProgramType;
+    }
+
+    public void setmProgramType(String programType) {
+        this.mProgramType = programType;
+    }
+
+    public String getmYear() {
+        return mYear;
+    }
+
+    public void setmYear(String year) {
+        this.mYear = year;
+    }
+
+    public String getmMajor() {
+        return mMajor;
+    }
+
+    public void setmMajor(String major) {
+        this.mMajor = major;
+    }
+
+    public String getmGreekSociety() {
+        return mGreekSociety;
+    }
+
+    public void setmGreekSociety(String greekSociety) {
+        this.mGreekSociety = greekSociety;
+    }
+
+    public String getmGender() {
+        return mGender;
+    }
+
+    public void setmGender(String gender) {
+        this.mGender = gender;
     }
 
 }

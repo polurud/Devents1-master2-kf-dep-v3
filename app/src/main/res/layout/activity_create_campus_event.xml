@@ -4,6 +4,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Information About Your DEvent"/>
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
@@ -11,13 +16,6 @@
         android:layout_weight="1"
         android:entries="@array/ui_manual_input_items" >
     </ListView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical" >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +28,20 @@
             android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
             />
 
-    <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Identify Audience Preferences"/>
+
+        <ListView
+            android:id="@+id/listview2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:entries="@array/create_event_audience_preferences" >
+        </ListView>
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -56,6 +67,5 @@
             android:onClick="onCancelClicked"
             android:text="@string/ui_button_cancel" >
         </Button>
-    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
