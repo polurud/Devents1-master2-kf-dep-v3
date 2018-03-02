@@ -33,6 +33,13 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     public static final String KEY_URL = "event_url";
     public static final String KEY_LATITUDE = "event_lat";
     public static final String KEY_LONGITUDE = "event_long";
+    public static final String KEY_FOOD = "event_food";
+    public static final String KEY_MAJOR = "event_major";
+    public static final String KEY_EVENT_TYPE = "e_event_type";
+    public static final String KEY_PROGRAM_TYPE = "event_program_type";
+    public static final String KEY_YEAR = "event_year";
+    public static final String KEY_GREEK_SOCIETY = "event_greek_society";
+    public static final String KEY_GENDER = "event_gender";
 
     // SQL query to create the table for the first time
     // Data types are defined below
@@ -58,12 +65,27 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             + KEY_LATITUDE
             + " DOUBLE, "
             + KEY_LONGITUDE
-            + " DOUBLE "
+            + " DOUBLE, "
+            + KEY_FOOD
+            + " INT, "
+            + KEY_EVENT_TYPE
+            + " TEXT, "
+            + KEY_PROGRAM_TYPE
+            + " TEXT, "
+            + KEY_YEAR
+            + " TEXT, "
+            + KEY_MAJOR
+            + " TEXT, "
+            + KEY_GREEK_SOCIETY
+            + " TEXT, "
+            + KEY_GENDER
+            + " TEXT "
             + ");";
 
     private static final String[] mColumnList = new String[]{KEY_ROWID,
             KEY_TITLE, KEY_DATE, KEY_START, KEY_END,
-            KEY_LOCATION, KEY_DESCRIPTION, KEY_URL, KEY_LATITUDE, KEY_LONGITUDE};
+            KEY_LOCATION, KEY_DESCRIPTION, KEY_URL, KEY_LATITUDE, KEY_LONGITUDE, KEY_FOOD, KEY_EVENT_TYPE,
+            KEY_PROGRAM_TYPE, KEY_YEAR, KEY_MAJOR, KEY_GREEK_SOCIETY, KEY_GENDER};
 
     public CampusEventDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -96,6 +118,13 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
         value.put(KEY_URL, event.getmUrl());
         value.put(KEY_LATITUDE, event.getmLatitude());
         value.put(KEY_LONGITUDE, event.getmLongitude());
+        value.put(KEY_FOOD, event.getmFood());
+        value.put(KEY_EVENT_TYPE, event.getmEventType());
+        value.put(KEY_PROGRAM_TYPE, event.getmProgramType());
+        value.put(KEY_YEAR, event.getmYear());
+        value.put(KEY_MAJOR, event.getmMajor());
+        value.put(KEY_GENDER, event.getmGender());
+        value.put(KEY_GREEK_SOCIETY, event.getmGreekSociety());
         SQLiteDatabase dbObj = getWritableDatabase();
         long id = dbObj.insert(TABLE_EVENT_ENTRIES, null, value);
         dbObj.close();
@@ -160,6 +189,13 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
         //Long location = cursor.getColumnIndex(KEY_LOCATION_PIN);
         event.setmLatitude(cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)));
         event.setmLongitude(cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)));
+        event.setmFood(cursor.getInt(cursor.getColumnIndex(KEY_FOOD)));
+        event.setmMajor(cursor.getString(cursor.getColumnIndex(KEY_MAJOR)));
+        event.setmEventType(cursor.getString(cursor.getColumnIndex(KEY_EVENT_TYPE)));
+        event.setmProgramType(cursor.getString(cursor.getColumnIndex(KEY_PROGRAM_TYPE)));
+        event.setmYear(cursor.getString(cursor.getColumnIndex(KEY_YEAR)));
+        event.setmGreekSociety(cursor.getString(cursor.getColumnIndex(KEY_GREEK_SOCIETY)));
+        event.setmGender(cursor.getString(cursor.getColumnIndex(KEY_GENDER)));
         return event;
     }
 }

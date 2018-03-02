@@ -18,4 +18,11 @@ public class Globals {
     public static final String KEY_URL = "url";
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
+    public static final String KEY_FOOD = "food";
+    public static final String KEY_MAJOR = "major";
+    public static final String KEY_EVENT_TYPE = "event_type";
+    public static final String KEY_PROGRAM_TYPE = "program_type";
+    public static final String KEY_YEAR = "year";
+    public static final String KEY_GREEK_SOCIETY = "greek_society";
+    public static final String KEY_GENDER = "gender";
 }

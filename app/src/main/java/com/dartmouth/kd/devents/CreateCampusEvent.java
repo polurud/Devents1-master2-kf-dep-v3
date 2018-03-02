@@ -34,7 +34,7 @@ public class CreateCampusEvent extends FragmentActivity {
 
     private CampusEventDbHelper mEventDbHelper;
     CampusEvent newEvent;
-    ListView listview;
+    ListView listview, listview2;
     public static final int LIST_ITEM_ID_TITLE = 0;
     public static final int LIST_ITEM_ID_DATE = 1;
     public static final int LIST_ITEM_ID_START = 2;
@@ -67,8 +67,6 @@ public class CreateCampusEvent extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_campus_event);
 
@@ -83,7 +81,7 @@ public class CreateCampusEvent extends FragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                int dialogId;
+                int dialogId = 0;
                 Intent myIntent;
                 // Figuring out what dialog to show based on the position clicked
                 // (more readable, also could use dialogId = position + 2)
@@ -109,32 +107,50 @@ public class CreateCampusEvent extends FragmentActivity {
                     case LIST_ITEM_ID_URL:
                         dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_URL;
                         break;
-                    case LIST_ITEM_ID_FOOD:
-                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_FOOD;
-                        break;
-                    case LIST_ITEM_ID_EVENT_TYPE:
-                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_EVENT_TYPE;
-                        break;
-                    case LIST_ITEM_ID_PROGRAM_TYPE:
-                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_PROGRAM_TYPE;
-                        break;
-                    case LIST_ITEM_ID_YEAR:
-                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_YEAR;
-                        break;
-                    case LIST_ITEM_ID_MAJOR:
-                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_MAJOR;
-                        break;
-                    case LIST_ITEM_ID_GREEK_SOCIETY:
-                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_GREEK_SOCIETY;
-                        break;
-                    case LIST_ITEM_ID_GENDER:
-                        dialogId = DialogFragment.DIALOG_ID_MANUAL_INPUT_GENDER;
-                        break;
                     default:
                         dialogId = DialogFragment.DIALOG_ID_ERROR;
                 }
 
                 displayDialog(dialogId);
+            }
+        });
+
+        listview2 = (ListView)findViewById(R.id.listview2);
+        listview2.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                int dialogId2 =0;
+                Intent myIntent;
+                // Figuring out what dialog to show based on the position clicked
+                // (more readable, also could use dialogId = position + 2)
+                switch (position) {
+                    case LIST_ITEM_ID_FOOD:
+                        dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_FOOD;
+                        break;
+                    case LIST_ITEM_ID_EVENT_TYPE:
+                        dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_EVENT_TYPE;
+                        break;
+                    case LIST_ITEM_ID_PROGRAM_TYPE:
+                        dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_PROGRAM_TYPE;
+                        break;
+                    case LIST_ITEM_ID_YEAR:
+                        dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_YEAR;
+                        break;
+                    case LIST_ITEM_ID_MAJOR:
+                        dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_MAJOR;
+                        break;
+                    case LIST_ITEM_ID_GREEK_SOCIETY:
+                        dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_GREEK_SOCIETY;
+                        break;
+                    case LIST_ITEM_ID_GENDER:
+                        dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_GENDER;
+                        break;
+                    default:
+                        dialogId2 = DialogFragment.DIALOG_ID_ERROR;
+                }
+
+                displayDialog(dialogId2);
             }
         });
 

@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Identify Audience Preferences"/>
+            android:text="Identify Audience Preferences for DEvent Filtering"/>
 
         <ListView
             android:id="@+id/listview2"
@@ -46,8 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:orientation="horizontal" >
-
-
 
         <Button
             android:id="@+id/btnSave"

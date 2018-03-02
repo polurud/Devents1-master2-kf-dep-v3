@@ -163,6 +163,15 @@
 
     </string-array>
 
+    <string-array name="event_types">
+        <item>Cultural Events</item>
+        <item>Sports</item>
+        <item>Workshops</item>
+        <item>Guest Speakers</item>
+        <item>Greek</item>
+
+    </string-array>
+
     <string name="ui_manual_input_location_hint">ex. Kemmeny 001</string>
     <string name="ui_manual_input_location">Location</string>
     <string name="ui_manual_input_title_hint">ex. Dartmouth Formula Racing Club Meeting</string>
