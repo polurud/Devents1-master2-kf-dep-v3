@@ -96,6 +96,9 @@ public class FilterWindow extends FragmentActivity {
        // eu.syncBackend();
         Toast.makeText(getApplicationContext(), "Filter applied",
                 Toast.LENGTH_SHORT).show();
+        //Intent intent = new Intent();
+        //intent.putExtra(Globals.KEY_FOOD, newFilter.getfFood());
+        //intent.
         finish();
     }
 
@@ -142,6 +145,10 @@ public class FilterWindow extends FragmentActivity {
 
     public void onFoodSet(int food) {
         newFilter.setfFood(food);
+    }
+
+    public Filters getCurrentFilters(){
+        return newFilter;
     }
 
 }

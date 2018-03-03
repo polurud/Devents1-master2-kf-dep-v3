@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class CalendarActivity extends ListFragment implements LoaderManager.LoaderCallbacks<ArrayList<CampusEvent>>  {
 
     private Intent myIntent;
+    FilterWindow window;
     private static CampusEventDbHelper mCampusEventDbHelper;
     public static ArrayList<CampusEvent>  eventsList = new ArrayList<CampusEvent>();
     public static Context mContext; // context pointed to parent activity
@@ -32,7 +33,7 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
     // exercise entry
     public static LoaderManager loaderManager;
     public static int onCreateCheck=0;
-
+    Filters currFilters;
     // retrieve records from the database and display them in the list view
 
     public void updateHistoryEntries(Context context) {
@@ -59,11 +60,16 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
 
         setListAdapter(this.mAdapter);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mContext = getActivity();
+
+        currFilters = new Filters();
+        window = new FilterWindow();
+        currFilters = window.getCurrentFilters();
 
         EventUploader eu = new EventUploader(mContext);
         eu.syncBackend();
@@ -78,6 +84,7 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
         loaderManager.initLoader(1, null, this).forceLoad();
 
         onCreateCheck=1;
+
 
     }
 
@@ -129,51 +136,6 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
         super.onDestroy();
     }
 
-    // Click event
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(); // The intent to launch the activity after
-        // click.
-        Bundle extras = new Bundle(); // The extra information needed pass
-        // through to next activity.
-
-        // get the Event corresponding to user's selection
-        CampusEvent event = mAdapter.getItem(position);
-
-        // Write row id into extras.
-        extras.putLong(Globals.KEY_ROWID, event.getmId());
-
-
-                // Passing information for display in the DisaplayEntryActivity.
-                extras.putString(Globals.KEY_TITLE,event.getmTitle());
-                extras.putString(Globals.KEY_DATE,
-                        Utils.parseDate(event.getmDateTimeInMillis(), mContext));
-                extras.putString(Globals.KEY_START,
-                        Utils.parseStart(event.getmDateTimeInMillis(), mContext));
-                extras.putString(Globals.KEY_END,
-                        Utils.parseEnd(event.getmDateTimeInMillis(), mContext));
-                extras.putString(Globals.KEY_LOCATION,event.getmLocation());
-                extras.putString(Globals.KEY_DESCRIPTION,event.getmDescription());
-                extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
-                extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
-                extras.putInt(Globals.KEY_FOOD, event.getmFood());
-                extras.putInt(Globals.KEY_MAJOR,event.getmMajor());
-                extras.putInt(Globals.KEY_EVENT_TYPE,event.getmEventType());
-                extras.putInt(Globals.KEY_PROGRAM_TYPE,event.getmProgramType());
-                extras.putInt(Globals.KEY_YEAR,event.getmYear());
-                extras.putInt(Globals.KEY_GREEK_SOCIETY,event.getmGreekSociety());
-                extras.putInt(Globals.KEY_GENDER,event.getmGender());
-
-
-
-                // Manual mode requires DisplayEntryActivity
-                intent.setClass(mContext, DisplayEventActivity.class);
-
-        // start the activity
-        intent.putExtras(extras);
-        startActivity(intent);
-    }
-
 
     @Override
     public Loader<ArrayList<CampusEvent>> onCreateLoader(int i, Bundle bundle) {
@@ -184,6 +146,7 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<ArrayList<CampusEvent>> loader, ArrayList<CampusEvent> campusEvents) {
+        //if(currFilters.getfFood() == 0 && currFilters.getfEventType() == 0 && currFilters.getfProgramType() == 0 && currFilters.getfGender() == 0 && currFilters.getfGreekSociety() ==0 && currFilters.getfMajor() == 0 && currFilters.getfYear() == 0)
         eventsList = campusEvents;
         mAdapter.clear();
         Log.d("TAGG", "Load Finished");
@@ -254,6 +217,51 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
             return listItemView;
         }
 
+    }
+
+    // Click event
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(); // The intent to launch the activity after
+        // click.
+        Bundle extras = new Bundle(); // The extra information needed pass
+        // through to next activity.
+
+        // get the Event corresponding to user's selection
+        CampusEvent event = mAdapter.getItem(position);
+
+        // Write row id into extras.
+        extras.putLong(Globals.KEY_ROWID, event.getmId());
+
+
+        // Passing information for display in the DisaplayEntryActivity.
+        extras.putString(Globals.KEY_TITLE,event.getmTitle());
+        extras.putString(Globals.KEY_DATE,
+                Utils.parseDate(event.getmDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_START,
+                Utils.parseStart(event.getmDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_END,
+                Utils.parseEnd(event.getmDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_LOCATION,event.getmLocation());
+        extras.putString(Globals.KEY_DESCRIPTION,event.getmDescription());
+        extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
+        extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
+        extras.putInt(Globals.KEY_FOOD, event.getmFood());
+        extras.putInt(Globals.KEY_MAJOR,event.getmMajor());
+        extras.putInt(Globals.KEY_EVENT_TYPE,event.getmEventType());
+        extras.putInt(Globals.KEY_PROGRAM_TYPE,event.getmProgramType());
+        extras.putInt(Globals.KEY_YEAR,event.getmYear());
+        extras.putInt(Globals.KEY_GREEK_SOCIETY,event.getmGreekSociety());
+        extras.putInt(Globals.KEY_GENDER,event.getmGender());
+
+
+
+        // Manual mode requires DisplayEntryActivity
+        intent.setClass(mContext, DisplayEventActivity.class);
+
+        // start the activity
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 }
