@@ -45,6 +45,13 @@ public class DialogFragment extends android.app.DialogFragment {
     public static final int DIALOG_ID_MANUAL_INPUT_MAJOR = 14;
     public static final int DIALOG_ID_MANUAL_INPUT_GREEK_SOCIETY = 15;
     public static final int DIALOG_ID_MANUAL_INPUT_GENDER = 16;
+    public static final int DIALOG_ID_FILTER_FOOD = 17;
+    public static final int DIALOG_ID_FILTER_EVENT_TYPE = 18;
+    public static final int DIALOG_ID_FILTER_PROGRAM_TYPE = 19;
+    public static final int DIALOG_ID_FILTER_YEAR = 20;
+    public static final int DIALOG_ID_FILTER_MAJOR = 21;
+    public static final int DIALOG_ID_FILTER_GREEK_SOCIETY = 22;
+    public static final int DIALOG_ID_FILTER_GENDER = 23;
     Context mContext;
     Intent myIntent;
     private static final String DIALOG_KEY = "dialog_id";
@@ -333,64 +340,88 @@ public class DialogFragment extends android.app.DialogFragment {
                 builder.setItems(R.array.e_food, dlistener7);
                 return builder.create();
 
-          /*AlertDialog.Builder builder2 = new AlertDialog.Builder(parent);
-          //spin = new Spinner(parent);
-          Spinner spin = new Spinner();
+            case DIALOG_ID_FILTER_FOOD:
 
-          ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                  android.R.layout.simple_spinner_item, R.array.Major);
+                builder.setTitle("Will there be food?");
+                DialogInterface.OnClickListener dlistener8 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        ((FilterWindow) parent).onFoodSet(item);
+                    }
+                };
+                builder.setItems(R.array.e_food, dlistener8);
+                return builder.create();
 
-          dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-          spin.setAdapter(dataAdapter);
+            case DIALOG_ID_FILTER_EVENT_TYPE:
 
-          builder2.setTitle("Applicable Major")
-                  .setView(spin)
-                  .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                      public void onClick(DialogInterface dialog, int id) {
-                      }
-                  })
-                  .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                      public void onClick(DialogInterface dialog, int id) {
-                          // User cancelled the dialog
-                      }
-                  });
-          // Create the AlertDialog object and return it
-          return builder2.create();*/
+                builder.setTitle("Filter By Event Type");
+                DialogInterface.OnClickListener dlistener9 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        ((FilterWindow) parent).onEventTypeSet(item);
+                    }
+                };
+                builder.setItems(R.array.event_types, dlistener9);
+                return builder.create();
+
+            case DIALOG_ID_FILTER_PROGRAM_TYPE:
+
+                builder.setTitle("Filter By Program Type");
+                DialogInterface.OnClickListener dlistener10 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        ((FilterWindow) parent).onProgramTypeSet(item);
+                    }
+                };
+                builder.setItems(R.array.e_program, dlistener10);
+                return builder.create();
+
+            case DIALOG_ID_FILTER_YEAR:
+
+                builder.setTitle("Filter By Class Year");
+                DialogInterface.OnClickListener dlistener11 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        ((FilterWindow) parent).onYearSet(item);
+                    }
+                };
+                builder.setItems(R.array.e_class_year, dlistener11);
+                return builder.create();
+
+            case DIALOG_ID_FILTER_MAJOR:
+
+                builder.setTitle("Filter By Major Type");
+                DialogInterface.OnClickListener dlistener13 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        ((FilterWindow) parent).onMajorSet(item);
+                    }
+                };
+                builder.setItems(R.array.e_majors, dlistener13);
+                return builder.create();
+
+            case DIALOG_ID_FILTER_GREEK_SOCIETY:
+
+                builder.setTitle("Filter By Society");
+                DialogInterface.OnClickListener dlistener14 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        ((FilterWindow) parent).onGreekSocietySet(item);
+                    }
+                };
+                builder.setItems(R.array.e_greek, dlistener14);
+                return builder.create();
+
+            case DIALOG_ID_FILTER_GENDER:
+
+                builder.setTitle("Filter By Gender");
+                DialogInterface.OnClickListener dlistener15 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        ((FilterWindow) parent).onGenderSet(item);
+                    }
+                };
+                builder.setItems(R.array.e_gender, dlistener15);
+                return builder.create();
 
             default:
                 return null;
         }
     }
 
-    String getMajorfromInt(int val) {
-        switch (val) {
-            case 0:
-                return "Arts";
-            case 1:
-                return "Humanities";
-            case 2:
-                return "Science, Technology and Math";
-            case 3:
-                return "Others";
-            default:
-                return "";
-        }
-    }
-
-    String getProgramfromInt(int val) {
-        switch (val) {
-            case 0:
-                return "Undergraduate";
-            case 1:
-                return "Graduate Masters";
-            case 2:
-                return "Graduate PhD";
-            case 3:
-                return "Faculty";
-            default:
-                return "";
-        }
-    }
 }
 
 

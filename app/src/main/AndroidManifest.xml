@@ -65,7 +65,8 @@
         </activity>
         <activity android:name=".DisplayEventActivity" />
         <activity android:name=".FunctionActivity" />
-        <activity android:name=".PlaceAutocompleteActivity"></activity>
+        <activity android:name=".PlaceAutocompleteActivity" />
+        <activity android:name=".FilterWindow"></activity>
     </application>
 
 </manifest>

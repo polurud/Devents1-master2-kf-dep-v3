@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,10 +21,12 @@ import android.widget.Toast;
 public class MapFragment extends Fragment {
 
     private Intent myIntent;
+    public static Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //
         setRetainInstance(true);
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,5 +45,6 @@ public class MapFragment extends Fragment {
 
         return ret;
     }
+
 
 }

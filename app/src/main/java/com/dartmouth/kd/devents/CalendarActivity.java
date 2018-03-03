@@ -8,17 +8,23 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
 
 public class CalendarActivity extends ListFragment implements LoaderManager.LoaderCallbacks<ArrayList<CampusEvent>>  {
 
+    private Intent myIntent;
     private static CampusEventDbHelper mCampusEventDbHelper;
     public static ArrayList<CampusEvent>  eventsList = new ArrayList<CampusEvent>();
     public static Context mContext; // context pointed to parent activity
@@ -41,6 +47,8 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
         }
     }
 
+
+
     private void setUpDB(Context context) {
         this.mContext = context;
         CampusEventDbHelper exerciseEntryDbHelper = new CampusEventDbHelper(context);
@@ -54,7 +62,7 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
         mContext = getActivity();
 
         EventUploader eu = new EventUploader(mContext);
@@ -76,8 +84,32 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.activity_calendar, container, false);
     }
+
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+            MenuItem item = menu.add(Menu.NONE, 0,0, "FILTER");
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == 0) {
+            myIntent = new Intent(getActivity(),  FilterWindow.class);
+            startActivityForResult(myIntent, 0);
+            Toast.makeText(mContext, "Filtering", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
+
+    }
+
+
 
     @Override
     public void onResume() {
