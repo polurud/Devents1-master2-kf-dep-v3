@@ -125,12 +125,12 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
                 extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
                 extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
                 extras.putInt(Globals.KEY_FOOD, event.getmFood());
-                extras.putString(Globals.KEY_MAJOR,event.getmMajor());
-                extras.putString(Globals.KEY_EVENT_TYPE,event.getmEventType());
-                extras.putString(Globals.KEY_PROGRAM_TYPE,event.getmProgramType());
-                extras.putString(Globals.KEY_YEAR,event.getmYear());
-                extras.putString(Globals.KEY_GREEK_SOCIETY,event.getmGreekSociety());
-                extras.putString(Globals.KEY_GENDER,event.getmGender());
+                extras.putInt(Globals.KEY_MAJOR,event.getmMajor());
+                extras.putInt(Globals.KEY_EVENT_TYPE,event.getmEventType());
+                extras.putInt(Globals.KEY_PROGRAM_TYPE,event.getmProgramType());
+                extras.putInt(Globals.KEY_YEAR,event.getmYear());
+                extras.putInt(Globals.KEY_GREEK_SOCIETY,event.getmGreekSociety());
+                extras.putInt(Globals.KEY_GENDER,event.getmGender());
 
 
 

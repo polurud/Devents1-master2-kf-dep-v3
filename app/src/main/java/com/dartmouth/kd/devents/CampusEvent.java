@@ -27,12 +27,12 @@ public class CampusEvent {
     private Double mLatitude;
     private Double mLongitude;
     private int mFood;
-    private String mEventType;
-    private String mProgramType;
-    private String mYear;
-    private String mMajor;
-    private String mGreekSociety;
-    private String mGender;
+    private int mEventType;
+    private int mProgramType;
+    private int mYear;
+    private int mMajor;
+    private int mGreekSociety;
+    private int mGender;
 
     public CampusEvent(){
         this.mTitle = "";
@@ -45,12 +45,12 @@ public class CampusEvent {
         this.mLatitude = null;
         this.mLongitude = null;
         this.mFood = 0;
-        this.mEventType = "";
-        this.mProgramType = "";
-        this.mYear = "";
-        this.mMajor = "";
-        this.mGender = "";
-        this.mGreekSociety="";
+        this.mEventType = 0;
+        this.mProgramType = 0;
+        this.mYear = 0;
+        this.mMajor = 0;
+        this.mGender = 0;
+        this.mGreekSociety=0;
 
 
     }
@@ -174,51 +174,51 @@ public class CampusEvent {
         this.mFood = food;
     }
 
-    public String getmEventType() {
+    public int getmEventType() {
         return mEventType;
     }
 
-    public void setmEventType(String eventType) {
+    public void setmEventType(int eventType) {
         this.mEventType = eventType;
     }
 
-    public String getmProgramType() {
+    public int getmProgramType() {
         return mProgramType;
     }
 
-    public void setmProgramType(String programType) {
+    public void setmProgramType(int programType) {
         this.mProgramType = programType;
     }
 
-    public String getmYear() {
+    public int getmYear() {
         return mYear;
     }
 
-    public void setmYear(String year) {
+    public void setmYear(int year) {
         this.mYear = year;
     }
 
-    public String getmMajor() {
+    public int getmMajor() {
         return mMajor;
     }
 
-    public void setmMajor(String major) {
+    public void setmMajor(int major) {
         this.mMajor = major;
     }
 
-    public String getmGreekSociety() {
+    public int getmGreekSociety() {
         return mGreekSociety;
     }
 
-    public void setmGreekSociety(String greekSociety) {
+    public void setmGreekSociety(int greekSociety) {
         this.mGreekSociety = greekSociety;
     }
 
-    public String getmGender() {
+    public int getmGender() {
         return mGender;
     }
 
-    public void setmGender(String gender) {
+    public void setmGender(int gender) {
         this.mGender = gender;
     }
 

@@ -155,11 +155,90 @@
     </string-array>
 
     <string-array name="class_year">
-        <item>NA</item>
+        <item>N/A</item>
         <item>2018</item>
         <item>2019</item>
         <item>2020</item>
         <item>2021</item>
+    </string-array>
+
+    <string-array name="e_program">
+        <item>ALL</item>
+        <item>Undergraduate</item>
+        <item>Graduate Masters</item>
+        <item>Graduate PhD</item>
+        <item>Faculty</item>
+    </string-array>
+
+    <string-array name="e_majors">
+        <item>ALL</item>
+        <item>Arts</item>
+        <item>Humanities</item>
+        <item>Science, Technology and Math</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="e_class_year">
+        <item>ALL</item>
+        <item>N/A</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+    </string-array>
+
+    <string-array name="e_gender">
+        <item>ALL</item>
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
+    <string-array name="e_food">
+        <item>No</item>
+        <item>YES!</item>
+    </string-array>
+
+
+    <string-array name="e_greek">
+        <item>ALL</item>
+        <item>N/A</item>
+        <item>Alpha Chi Alpha</item>
+        <item>Alpha Kappa Alpha Sorority</item>
+        <item>Alpha Phi</item>
+
+        <item>Alpha Phi Alpha, Fraternity</item>
+        <item>Alpha Pi Omega, Sorority</item>
+        <item>Alpha Theta</item>
+
+        <item>Alpha Xi Delta</item>
+        <item>Beta Alpha Omega</item>
+        <item>Bones Gate</item>
+
+        <item>Chi Delta</item>
+        <item>Chi Gamma Epsilon</item>
+        <item>Chi Heorot</item>
+
+        <item>Epsilon Kappa Theta</item>
+        <item>Gamma Delta Chi</item>
+        <item>Kappa Delta</item>
+
+        <item>Kappa Delta Epsilon</item>
+        <item>Kappa Kappa Gamma</item>
+        <item>Kappa Kappa Kappa</item>
+
+        <item>Lambda Upsilon Lambda</item>
+        <item>Phi Delta Alpha</item>
+        <item>Phi Tau</item>
+
+        <item>Psi Upsilon</item>
+        <item>Sigma Delta</item>
+        <item>Sigma Nu</item>
+
+        <item>Sigma Phi Epsilon</item>
+        <item>The Tabard</item>
+        <item>Theta Delta Chi</item>
+
+        <item>Zeta Psi</item>
 
     </string-array>
 

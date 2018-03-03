@@ -42,13 +42,13 @@ public class CreateCampusEvent extends FragmentActivity {
     public static final int LIST_ITEM_ID_LOCATION = 4;
     public static final int LIST_ITEM_ID_DESCRIPTION = 5;
     public static final int LIST_ITEM_ID_URL = 6;
-    public static final int LIST_ITEM_ID_FOOD = 7;
-    public static final int LIST_ITEM_ID_EVENT_TYPE = 8;
-    public static final int LIST_ITEM_ID_PROGRAM_TYPE = 9;
-    public static final int LIST_ITEM_ID_YEAR = 10;
-    public static final int LIST_ITEM_ID_MAJOR = 11;
-    public static final int LIST_ITEM_ID_GREEK_SOCIETY = 12;
-    public static final int LIST_ITEM_ID_GENDER = 13;
+    public static final int LIST_ITEM_ID_FOOD = 0;
+    public static final int LIST_ITEM_ID_EVENT_TYPE = 1;
+    public static final int LIST_ITEM_ID_PROGRAM_TYPE = 2;
+    public static final int LIST_ITEM_ID_YEAR = 3;
+    public static final int LIST_ITEM_ID_MAJOR = 4;
+    public static final int LIST_ITEM_ID_GREEK_SOCIETY = 5;
+    public static final int LIST_ITEM_ID_GENDER = 6;
 
     private int mFood;
     private String mEventType;
@@ -138,6 +138,7 @@ public class CreateCampusEvent extends FragmentActivity {
                         dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_YEAR;
                         break;
                     case LIST_ITEM_ID_MAJOR:
+                        Log.d(Globals.TAGG, "in major create campus event ");
                         dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_MAJOR;
                         break;
                     case LIST_ITEM_ID_GREEK_SOCIETY:
@@ -247,27 +248,27 @@ public class CreateCampusEvent extends FragmentActivity {
     }
 
 
-    public void onEventTypeSet(String eventType) {
+    public void onEventTypeSet(int eventType) {
         newEvent.setmEventType(eventType);
     }
 
-    public void onProgramTypeSet(String programType) {
+    public void onProgramTypeSet(int programType) {
         newEvent.setmProgramType(programType);
     }
 
-    public void onMajorSet(String major) {
+    public void onMajorSet(int major) {
         newEvent.setmMajor(major);
     }
 
-    public void onGenderSet(String gender) {
+    public void onGenderSet(int gender) {
         newEvent.setmGender(gender);
     }
 
-    public void onGreekSocietySet(String greekSociety) {
+    public void onGreekSocietySet(int greekSociety) {
         newEvent.setmGreekSociety(greekSociety);
     }
 
-    public void onYearSet(String year) {
+    public void onYearSet(int year) {
         newEvent.setmYear(year);
     }
 

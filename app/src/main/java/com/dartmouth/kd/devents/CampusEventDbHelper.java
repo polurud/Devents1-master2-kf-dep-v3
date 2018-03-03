@@ -69,17 +69,17 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             + KEY_FOOD
             + " INT, "
             + KEY_EVENT_TYPE
-            + " TEXT, "
+            + " INT, "
             + KEY_PROGRAM_TYPE
-            + " TEXT, "
+            + " INT, "
             + KEY_YEAR
-            + " TEXT, "
+            + " INT, "
             + KEY_MAJOR
-            + " TEXT, "
+            + " INT, "
             + KEY_GREEK_SOCIETY
-            + " TEXT, "
+            + " INT, "
             + KEY_GENDER
-            + " TEXT "
+            + " INT "
             + ");";
 
     private static final String[] mColumnList = new String[]{KEY_ROWID,
@@ -190,12 +190,12 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
         event.setmLatitude(cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)));
         event.setmLongitude(cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)));
         event.setmFood(cursor.getInt(cursor.getColumnIndex(KEY_FOOD)));
-        event.setmMajor(cursor.getString(cursor.getColumnIndex(KEY_MAJOR)));
-        event.setmEventType(cursor.getString(cursor.getColumnIndex(KEY_EVENT_TYPE)));
-        event.setmProgramType(cursor.getString(cursor.getColumnIndex(KEY_PROGRAM_TYPE)));
-        event.setmYear(cursor.getString(cursor.getColumnIndex(KEY_YEAR)));
-        event.setmGreekSociety(cursor.getString(cursor.getColumnIndex(KEY_GREEK_SOCIETY)));
-        event.setmGender(cursor.getString(cursor.getColumnIndex(KEY_GENDER)));
+        event.setmMajor(cursor.getInt(cursor.getColumnIndex(KEY_MAJOR)));
+        event.setmEventType(cursor.getInt(cursor.getColumnIndex(KEY_EVENT_TYPE)));
+        event.setmProgramType(cursor.getInt(cursor.getColumnIndex(KEY_PROGRAM_TYPE)));
+        event.setmYear(cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
+        event.setmGreekSociety(cursor.getInt(cursor.getColumnIndex(KEY_GREEK_SOCIETY)));
+        event.setmGender(cursor.getInt(cursor.getColumnIndex(KEY_GENDER)));
         return event;
     }
 }

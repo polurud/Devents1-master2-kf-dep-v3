@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -64,12 +65,12 @@ public class DialogFragment extends android.app.DialogFragment {
         //final Spinner spin;
         final Calendar now;
         int hour, minute, year, month, day;
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(parent);
 
         switch (dialog_id) {
             case DIALOG_PHOTO:
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+                //AlertDialog.Builder builder = new AlertDialog.Builder(parent);
                 builder.setTitle(R.string.ui_profile_pic_Gallerychoose);
 
                 builder.setItems(R.array.ui_profile_photo_selection,
@@ -235,104 +236,103 @@ public class DialogFragment extends android.app.DialogFragment {
             //NEED TO DO THIS FOR ALL FILTERS
             case DIALOG_ID_MANUAL_INPUT_MAJOR:
 
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(parent);
-                builder2.setTitle("Applicable Major");
+                builder.setTitle("Choose Applicable Major");
 
-                builder2.setItems(R.array.Major,
-                        new DialogInterface.OnClickListener() {
+                        DialogInterface.OnClickListener dlistener = new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                //String major = R.array.Major
-                                //dialog.
-                                String major = getMajorfromInt(item);
-                                ((CreateCampusEvent) parent).onMajorSet(major);
-                                // ((UserProfile) parent).onPhotoPickerItemSelected(item);
+
+                                ((CreateCampusEvent) parent).onMajorSet(item);
+                                Log.d(Globals.TAGG, "Major int is " +item);
                             }
-                        });
+                        };
+                builder.setItems(R.array.e_majors, dlistener);
+                return builder.create();
 
             case DIALOG_ID_MANUAL_INPUT_YEAR:
 
-                AlertDialog.Builder builder3 = new AlertDialog.Builder(parent);
-                builder3.setTitle("Applicable Major");
+                //AlertDialog.Builder builder3 = new AlertDialog.Builder(parent);
+                builder.setTitle("Choose Applicable Year");
 
-                builder3.setItems(R.array.class_year,
-                        new DialogInterface.OnClickListener() {
+                DialogInterface.OnClickListener dlistener2 = new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                //String major = R.array.Major
-                                //dialog.
-                                String major = getMajorfromInt(item);
-                                ((CreateCampusEvent) parent).onMajorSet(major);
-                                // ((UserProfile) parent).onPhotoPickerItemSelected(item);
+                                ((CreateCampusEvent) parent).onYearSet(item);
                             }
-                        });
-                return builder3.create();
+                        };
+                builder.setItems(R.array.e_class_year, dlistener2);
+                return builder.create();
 
             case DIALOG_ID_MANUAL_INPUT_EVENT_TYPE:
 
-                AlertDialog.Builder builder4 = new AlertDialog.Builder(parent);
-                builder4.setTitle("Applicable Major");
+                //AlertDialog.Builder builder4 = new AlertDialog.Builder(parent);
+                builder.setTitle("Choose Applicable Event Type");
 
-                builder4.setItems(R.array.event_types,
-                        new DialogInterface.OnClickListener() {
+                        DialogInterface.OnClickListener dlistener3 = new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                //String major = R.array.Major
-                                //dialog.
-                                String major = getMajorfromInt(item);
-                                ((CreateCampusEvent) parent).onMajorSet(major);
-                                // ((UserProfile) parent).onPhotoPickerItemSelected(item);
+
+                                ((CreateCampusEvent) parent).onEventTypeSet(item);
                             }
-                        });
-                return builder4.create();
+                        };
+                builder.setItems(R.array.event_types, dlistener3);
+                return builder.create();
+
 
             case DIALOG_ID_MANUAL_INPUT_PROGRAM_TYPE:
 
-                AlertDialog.Builder builder5 = new AlertDialog.Builder(parent);
-                builder5.setTitle("Applicable Program Type");
+                //AlertDialog.Builder builder5 = new AlertDialog.Builder(parent);
+                builder.setTitle("Choose Applicable Program Type");
 
-                builder5.setItems(R.array.program,
-                        new DialogInterface.OnClickListener() {
+                DialogInterface.OnClickListener dlistener4 = new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                //String major = R.array.Major
-                                //dialog.
-                                String major = getMajorfromInt(item);
-                                ((CreateCampusEvent) parent).onMajorSet(major);
-                                // ((UserProfile) parent).onPhotoPickerItemSelected(item);
+
+                                ((CreateCampusEvent) parent).onProgramTypeSet(item);
+
                             }
-                        });
-                return builder5.create();
+                        };
+                builder.setItems(R.array.e_program, dlistener4);
+                return builder.create();
 
             case DIALOG_ID_MANUAL_INPUT_GREEK_SOCIETY:
 
-                AlertDialog.Builder builder6 = new AlertDialog.Builder(parent);
-                builder6.setTitle("Greek Affliation");
+                //AlertDialog.Builder builder6 = new AlertDialog.Builder(parent);
+                builder.setTitle("Choose Applicable Greek Affliation");
 
-                builder6.setItems(R.array.Greek,
-                        new DialogInterface.OnClickListener() {
+
+                DialogInterface.OnClickListener dlistener5 = new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                //String major = R.array.Major
-                                //dialog.
-                                String major = getMajorfromInt(item);
-                                ((CreateCampusEvent) parent).onMajorSet(major);
-                                // ((UserProfile) parent).onPhotoPickerItemSelected(item);
+                                ((CreateCampusEvent) parent).onGreekSocietySet(item);
+
                             }
-                        });
-                return builder6.create();
+                        };
+                builder.setItems(R.array.e_greek, dlistener5);
+                return builder.create();
 
             case DIALOG_ID_MANUAL_INPUT_GENDER:
 
-                AlertDialog.Builder builder7 = new AlertDialog.Builder(parent);
-                builder7.setTitle("Applicable Program Type");
-
-                builder7.setItems(R.array.program,
-                        new DialogInterface.OnClickListener() {
+                builder.setTitle("Choose Applicable Gender");
+                DialogInterface.OnClickListener dlistener6 = new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                //String major = R.array.Major
-                                //dialog.
-                                String major = getMajorfromInt(item);
-                                ((CreateCampusEvent) parent).onMajorSet(major);
-                                // ((UserProfile) parent).onPhotoPickerItemSelected(item);
+
+                                ((CreateCampusEvent) parent).onGenderSet(item);
                             }
-                        });
-                return builder7.create();
+                        };
+                builder.setItems(R.array.e_gender, dlistener6);
+                return builder.create();
+
+            case DIALOG_ID_MANUAL_INPUT_FOOD:
+
+                //AlertDialog.Builder builder5 = new AlertDialog.Builder(parent);
+                builder.setTitle("Will there be food?");
+
+                DialogInterface.OnClickListener dlistener7 = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+
+                        ((CreateCampusEvent) parent).onProgramTypeSet(item);
+
+                    }
+                };
+                builder.setItems(R.array.e_food, dlistener7);
+                return builder.create();
+
           /*AlertDialog.Builder builder2 = new AlertDialog.Builder(parent);
           //spin = new Spinner(parent);
           Spinner spin = new Spinner();
@@ -364,14 +364,29 @@ public class DialogFragment extends android.app.DialogFragment {
 
     String getMajorfromInt(int val) {
         switch (val) {
-            case 1:
+            case 0:
                 return "Arts";
-            case 2:
+            case 1:
                 return "Humanities";
-            case 3:
+            case 2:
                 return "Science, Technology and Math";
-            case 4:
+            case 3:
                 return "Others";
+            default:
+                return "";
+        }
+    }
+
+    String getProgramfromInt(int val) {
+        switch (val) {
+            case 0:
+                return "Undergraduate";
+            case 1:
+                return "Graduate Masters";
+            case 2:
+                return "Graduate PhD";
+            case 3:
+                return "Faculty";
             default:
                 return "";
         }
