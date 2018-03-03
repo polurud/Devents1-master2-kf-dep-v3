@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class CalendarActivity extends ListFragment implements LoaderManager.LoaderCallbacks<ArrayList<CampusEvent>>  {
 
     private Intent myIntent;
-    FilterWindow window;
     private static CampusEventDbHelper mCampusEventDbHelper;
     public static ArrayList<CampusEvent>  eventsList = new ArrayList<CampusEvent>();
     public static Context mContext; // context pointed to parent activity
@@ -34,6 +33,7 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
     public static LoaderManager loaderManager;
     public static int onCreateCheck=0;
     Filters currFilters;
+    FilterWindow window;
     // retrieve records from the database and display them in the list view
 
     public void updateHistoryEntries(Context context) {
@@ -144,10 +144,19 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
         return new DataLoader(mContext);
     }
 
+
     @Override
     public void onLoadFinished(Loader<ArrayList<CampusEvent>> loader, ArrayList<CampusEvent> campusEvents) {
-        //if(currFilters.getfFood() == 0 && currFilters.getfEventType() == 0 && currFilters.getfProgramType() == 0 && currFilters.getfGender() == 0 && currFilters.getfGreekSociety() ==0 && currFilters.getfMajor() == 0 && currFilters.getfYear() == 0)
-        eventsList = campusEvents;
+        CampusEventDbHelper dbh = new CampusEventDbHelper(mContext);
+
+        FilterDbHelper fdbh = new FilterDbHelper(mContext);
+        currFilters = fdbh.getLastUsedFilter();
+         //currFilters = window.getCurrentFilters();
+        Log.d(Globals.TAGG, "Are current filters null?" + currFilters);
+        ArrayList<CampusEvent> newList = dbh.eventListFilter(campusEvents, currFilters);
+        Log.d(Globals.TAGG, "Showing what is in new list" + newList);
+        eventsList = newList;
+        //eventsList = campusEvents;
         mAdapter.clear();
         Log.d("TAGG", "Load Finished");
 

@@ -5,7 +5,7 @@ package com.dartmouth.kd.devents;
  */
 
 public class Filters {
-
+    private Long mId;
     private int food;
     private int eventType;
     private int programType;
@@ -24,6 +24,15 @@ public class Filters {
         this.gender=0;
         this.greekSociety=0;
 
+    }
+
+
+    public Long getfId() {
+        return mId;
+    }
+
+    public void setfId(Long id) {
+        this.mId = id;
     }
 
     public int getfFood(){

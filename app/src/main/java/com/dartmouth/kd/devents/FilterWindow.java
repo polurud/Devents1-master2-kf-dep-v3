@@ -22,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class FilterWindow extends FragmentActivity {
 
+    private FilterDbHelper filterDbHelper;
     Filters newFilter;
     ListView listview2;
     public static final int LIST_ITEM_ID_FOOD = 0;
@@ -86,19 +87,17 @@ public class FilterWindow extends FragmentActivity {
             }
         });
         newFilter = new Filters();
+        filterDbHelper = new FilterDbHelper(this);
     }
 
 
     // "Save" button is clicked
     public void onSaveClicked(View v) {
-        //new CreateCampusEvent.InsertIntoDbTask().execute(newEvent);
-       // EventUploader eu = new EventUploader(this);
-       // eu.syncBackend();
+        new InsertIntoDbTask().execute(newFilter);
         Toast.makeText(getApplicationContext(), "Filter applied",
                 Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent();
-        //intent.putExtra(Globals.KEY_FOOD, newFilter.getfFood());
-        //intent.
+        //sendCurrentFilters(newFilter);
+
         finish();
     }
 
@@ -149,6 +148,24 @@ public class FilterWindow extends FragmentActivity {
 
     public Filters getCurrentFilters(){
         return newFilter;
+    }
+
+    public class InsertIntoDbTask extends AsyncTask<Filters, Void, String> {
+        @Override
+        protected String doInBackground(Filters... filterList) {
+            long id = filterDbHelper.insertFilter(filterList[0]);
+
+            return ""+id;
+            // Pop up a toast
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(), "Event #" + result + " saved.", Toast.LENGTH_SHORT)
+                    .show();
+        }
+
     }
 
 }

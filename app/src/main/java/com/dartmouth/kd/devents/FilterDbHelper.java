@@ -3,18 +3,18 @@ package com.dartmouth.kd.devents;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.SQLException;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 /**
- * Created by kathrynflattum on 2/25/18.
+ * Created by kathrynflattum on 3/3/18.
  */
 
-public class CampusEventDbHelper extends SQLiteOpenHelper {
+public class FilterDbHelper extends SQLiteOpenHelper {
     // Database name string
     public static final String DATABASE_NAME = "CampusEventsDB";
     // Table name string. (Only one table)
@@ -25,15 +25,6 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
     // Table schema, column names
     public static final String KEY_ROWID = "_id";
-    public static final String KEY_TITLE = "event_title";
-    public static final String KEY_DATE = "event_date";
-    public static final String KEY_START = "event_start";
-    public static final String KEY_END = "event_end";
-    public static final String KEY_LOCATION = "event_location";
-    public static final String KEY_DESCRIPTION = "event_description";
-    public static final String KEY_URL = "event_url";
-    public static final String KEY_LATITUDE = "event_lat";
-    public static final String KEY_LONGITUDE = "event_long";
     public static final String KEY_FOOD = "event_food";
     public static final String KEY_MAJOR = "event_major";
     public static final String KEY_EVENT_TYPE = "e_event_type";
@@ -49,24 +40,6 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             + "("
             + KEY_ROWID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + KEY_TITLE
-            + " TEXT, "
-            + KEY_DATE
-            + " DATETIME NOT NULL, "
-            + KEY_START
-            + " DATETIME NOT NULL, "
-            + KEY_END
-            + " DATETIME NOT NULL, "
-            + KEY_LOCATION
-            + " TEXT, "
-            + KEY_DESCRIPTION
-            + " TEXT, "
-            + KEY_URL
-            + " TEXT, "
-            + KEY_LATITUDE
-            + " DOUBLE, "
-            + KEY_LONGITUDE
-            + " DOUBLE, "
             + KEY_FOOD
             + " INT, "
             + KEY_EVENT_TYPE
@@ -84,11 +57,10 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             + ");";
 
     private static final String[] mColumnList = new String[]{KEY_ROWID,
-            KEY_TITLE, KEY_DATE, KEY_START, KEY_END,
-            KEY_LOCATION, KEY_DESCRIPTION, KEY_URL, KEY_LATITUDE, KEY_LONGITUDE, KEY_FOOD, KEY_EVENT_TYPE,
+            KEY_FOOD, KEY_EVENT_TYPE,
             KEY_PROGRAM_TYPE, KEY_YEAR, KEY_MAJOR, KEY_GREEK_SOCIETY, KEY_GENDER};
 
-    public CampusEventDbHelper(Context context) {
+    public FilterDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -103,29 +75,16 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     }
 
     // Insert a item given each column value
-    public long insertEntry(CampusEvent event) {
+    public long insertFilter(Filters filter) {
 
         ContentValues value = new ContentValues();
-
-        value.put(KEY_TITLE, event.getmTitle());
-        value.put(KEY_DATE, event.getmDateTimeInMillis());
-
-        //THIS NEEDS TO BE CHANGED
-        value.put(KEY_START, event.getmDateTimeInMillis());
-        value.put(KEY_END, event.getmDateTimeInMillis());
-
-        value.put(KEY_LOCATION, event.getmLocation());
-        value.put(KEY_DESCRIPTION, event.getmDescription());
-        value.put(KEY_URL, event.getmUrl());
-        value.put(KEY_LATITUDE, event.getmLatitude());
-        value.put(KEY_LONGITUDE, event.getmLongitude());
-        value.put(KEY_FOOD, event.getmFood());
-        value.put(KEY_EVENT_TYPE, event.getmEventType());
-        value.put(KEY_PROGRAM_TYPE, event.getmProgramType());
-        value.put(KEY_YEAR, event.getmYear());
-        value.put(KEY_MAJOR, event.getmMajor());
-        value.put(KEY_GENDER, event.getmGender());
-        value.put(KEY_GREEK_SOCIETY, event.getmGreekSociety());
+        value.put(KEY_FOOD, filter.getfFood());
+        value.put(KEY_EVENT_TYPE, filter.getfEventType());
+        value.put(KEY_PROGRAM_TYPE, filter.getfProgramType());
+        value.put(KEY_YEAR, filter.getfYear());
+        value.put(KEY_MAJOR, filter.getfMajor());
+        value.put(KEY_GENDER, filter.getfGender());
+        value.put(KEY_GREEK_SOCIETY, filter.getfGreekSociety());
         SQLiteDatabase dbObj = getWritableDatabase();
         long id = dbObj.insert(TABLE_EVENT_ENTRIES, null, value);
         dbObj.close();
@@ -133,7 +92,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     }
 
     // Remove a entry by giving its index
-    public void removeEvent(long rowIndex) {
+    public void removeFilter(long rowIndex) {
         SQLiteDatabase dbObj = getWritableDatabase();
         dbObj.delete(TABLE_EVENT_ENTRIES, KEY_ROWID + "=" + rowIndex, null);
         dbObj.close();
@@ -141,63 +100,75 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
     // Query a specific entry by its index. Return a cursor having each column
     // value
-    public CampusEvent fetchEventByIndex(long rowId) throws SQLException {
+    public Filters fetchFilterByIndex(long rowId) throws SQLException {
         SQLiteDatabase dbObj = getReadableDatabase();
-        CampusEvent event = null;
+        Filters filter = null;
 
         Cursor cursor = dbObj.query(true, TABLE_EVENT_ENTRIES, mColumnList,
                 KEY_ROWID + "=" + rowId, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            event = cursorToEvent(cursor, true);
+            filter = cursorToEvent(cursor);
         }
 
         cursor.close();
         dbObj.close();
 
-        return event;
+        return filter;
     }
 
     // Query the entire table, return all rows
-    public ArrayList<CampusEvent> fetchEvents() {
+    public Filters getLastUsedFilter() {
         SQLiteDatabase dbObj = getReadableDatabase();
-        ArrayList<CampusEvent> entryList = new ArrayList<CampusEvent>();
+        ArrayList<Filters> filtersList = new ArrayList<Filters>();
+        if (filtersList == null){
+            return null;
+        }else {
+            Cursor cursor = dbObj.query(TABLE_EVENT_ENTRIES, mColumnList, null,
+                    null, null, null, null);
+            Filters filter = null;
+            while (cursor.moveToNext()) {
+                filter = cursorToEvent(cursor);
+            }
+
+            cursor.close();
+            dbObj.close();
+
+            return filter;
+        }
+    }
+
+
+    // Query the entire table, return all rows
+    public ArrayList<Filters> fetchFilters() {
+        SQLiteDatabase dbObj = getReadableDatabase();
+        ArrayList<Filters> filtersList = new ArrayList<Filters>();
 
         Cursor cursor = dbObj.query(TABLE_EVENT_ENTRIES, mColumnList, null,
                 null, null, null, null);
 
         while (cursor.moveToNext()) {
-            CampusEvent event = cursorToEvent(cursor, false);
-            entryList.add(event);
+            Filters filter = cursorToEvent(cursor);
+            filtersList.add(filter);
         }
 
         cursor.close();
         dbObj.close();
 
-        return entryList;
+        return filtersList;
     }
 
-    private CampusEvent cursorToEvent(Cursor cursor, boolean needGps) {
-        CampusEvent event = new CampusEvent();
-        event.setmId(cursor.getLong(cursor.getColumnIndex(KEY_ROWID)));
-        event.setmDateTime(cursor.getLong(cursor.getColumnIndex(KEY_DATE)));
-        event.setmTitle(cursor.getString(cursor.getColumnIndex(KEY_TITLE)));
-        event.setmStart(cursor.getLong(cursor.getColumnIndex(KEY_START)));
-        event.setmEnd(cursor.getLong(cursor.getColumnIndex(KEY_END)));
-        event.setmLocation(cursor.getString(cursor.getColumnIndex(KEY_LOCATION)));
-        event.setmDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
-        event.setmUrl(cursor.getString(cursor.getColumnIndex(KEY_URL)));
-        //Long location = cursor.getColumnIndex(KEY_LOCATION_PIN);
-        event.setmLatitude(cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)));
-        event.setmLongitude(cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)));
-        event.setmFood(cursor.getInt(cursor.getColumnIndex(KEY_FOOD)));
-        event.setmMajor(cursor.getInt(cursor.getColumnIndex(KEY_MAJOR)));
-        event.setmEventType(cursor.getInt(cursor.getColumnIndex(KEY_EVENT_TYPE)));
-        event.setmProgramType(cursor.getInt(cursor.getColumnIndex(KEY_PROGRAM_TYPE)));
-        event.setmYear(cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
-        event.setmGreekSociety(cursor.getInt(cursor.getColumnIndex(KEY_GREEK_SOCIETY)));
-        event.setmGender(cursor.getInt(cursor.getColumnIndex(KEY_GENDER)));
-        return event;
+    private Filters cursorToEvent(Cursor cursor) {
+        Filters filter = new Filters();
+        filter.setfId(cursor.getLong(cursor.getColumnIndex(KEY_ROWID)));
+        filter.setfFood(cursor.getInt(cursor.getColumnIndex(KEY_FOOD)));
+        filter.setfMajor(cursor.getInt(cursor.getColumnIndex(KEY_MAJOR)));
+        filter.setfEventType(cursor.getInt(cursor.getColumnIndex(KEY_EVENT_TYPE)));
+        filter.setfProgramType(cursor.getInt(cursor.getColumnIndex(KEY_PROGRAM_TYPE)));
+        filter.setfYear(cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
+        filter.setfGreekSociety(cursor.getInt(cursor.getColumnIndex(KEY_GREEK_SOCIETY)));
+        filter.setfGender(cursor.getInt(cursor.getColumnIndex(KEY_GENDER)));
+        return filter;
     }
 
 

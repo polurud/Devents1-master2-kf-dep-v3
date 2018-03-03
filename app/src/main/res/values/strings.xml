@@ -97,7 +97,7 @@
 
     <string name="Select_GreekSociety">Select Greek Society</string>
     <string-array name="Greek">
-        <item>NA</item>
+        <item>N/A</item>
         <item>Alpha Chi Alpha</item>
         <item>Alpha Kappa Alpha Sorority</item>
         <item>Alpha Phi</item>
@@ -139,11 +139,12 @@
     </string-array>
 
 
-    <string-array name="program">
-        <item>Undergraduate</item>
-        <item>Graduate Masters</item>
-        <item>Graduate PhD</item>
-        <item>Faculty</item>
+    <string-array name="e_majors">
+        <item>ALL</item>
+        <item>Arts</item>
+        <item>Humanities</item>
+        <item>Science, Technology and Math</item>
+        <item>Others</item>
     </string-array>
 
 
@@ -154,12 +155,12 @@
         <item>Others</item>
     </string-array>
 
-    <string-array name="class_year">
-        <item>N/A</item>
-        <item>2018</item>
-        <item>2019</item>
-        <item>2020</item>
-        <item>2021</item>
+
+    <string-array name="program">
+        <item>Undergraduate</item>
+        <item>Graduate Masters</item>
+        <item>Graduate PhD</item>
+        <item>Faculty</item>
     </string-array>
 
     <string-array name="e_program">
@@ -170,12 +171,13 @@
         <item>Faculty</item>
     </string-array>
 
-    <string-array name="e_majors">
-        <item>ALL</item>
-        <item>Arts</item>
-        <item>Humanities</item>
-        <item>Science, Technology and Math</item>
-        <item>Others</item>
+
+    <string-array name="class_year">
+        <item>N/A</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
     </string-array>
 
     <string-array name="e_class_year">
@@ -187,13 +189,13 @@
         <item>2021</item>
     </string-array>
 
-    <string-array name="e_gender">
+    <string-array name="e_food">
         <item>ALL</item>
-        <item>Female</item>
-        <item>Male</item>
+        <item>No</item>
+        <item>YES!</item>
     </string-array>
 
-    <string-array name="e_food">
+    <string-array name="food">
         <item>No</item>
         <item>YES!</item>
     </string-array>
@@ -242,13 +244,28 @@
 
     </string-array>
 
+
+    <string-array name="e_gender">
+        <item>ALL</item>
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
     <string-array name="event_types">
+        <item>ALL</item>
         <item>Cultural Events</item>
         <item>Sports</item>
         <item>Workshops</item>
         <item>Guest Speakers</item>
         <item>Greek</item>
+    </string-array>
 
+    <string-array name="event_types1">
+        <item>Cultural Events</item>
+        <item>Sports</item>
+        <item>Workshops</item>
+        <item>Guest Speakers</item>
+        <item>Greek</item>
     </string-array>
 
     <string name="ui_manual_input_location_hint">ex. Kemmeny 001</string>

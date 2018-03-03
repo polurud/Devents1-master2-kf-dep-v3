@@ -279,7 +279,7 @@ public class DialogFragment extends android.app.DialogFragment {
                                 ((CreateCampusEvent) parent).onEventTypeSet(item);
                             }
                         };
-                builder.setItems(R.array.event_types, dlistener3);
+                builder.setItems(R.array.event_types1, dlistener3);
                 return builder.create();
 
 
@@ -337,7 +337,7 @@ public class DialogFragment extends android.app.DialogFragment {
 
                     }
                 };
-                builder.setItems(R.array.e_food, dlistener7);
+                builder.setItems(R.array.food, dlistener7);
                 return builder.create();
 
             case DIALOG_ID_FILTER_FOOD:
