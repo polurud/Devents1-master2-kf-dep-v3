@@ -50,18 +50,18 @@ public class EventUploader implements ValueEventListener {
     }
 
 
-    public void syncBackend(CampusEvent event) {
-        //removeDataFromDatabase();
+    public void syncBackend(long id) {
         rootRef = FirebaseDatabase.getInstance().getReference("masterSheet");
         Log.d(Globals.TAGG, "sync backend is getting called");
-        long id = event.getmId();
+        CampusEventDbHelper db = new CampusEventDbHelper(mContext);
+        CampusEvent event = db.fetchEventByIndex(id);
         //String key = mDatabase.push().getKey();
         String idString = String.valueOf(id);
-        //Log.d(TAG, "Key is" + key);
+        Log.d(TAG, "Id is" + id);
         //Log.d(TAG, "idString is" + idString);
         //mDatabase.setValue(event);
         //rootRef = FirebaseDatabase.getInstance().getReference("masterSheet");
-        rootRef.child(entryID).child(idString).setValue(event);
+        rootRef.child(idString).setValue(event);
         //rootRef.setValue(event);
 
     }

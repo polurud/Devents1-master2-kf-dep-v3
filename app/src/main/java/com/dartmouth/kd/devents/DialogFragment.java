@@ -333,7 +333,7 @@ public class DialogFragment extends android.app.DialogFragment {
                 DialogInterface.OnClickListener dlistener7 = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
 
-                        ((CreateCampusEvent) parent).onProgramTypeSet(item);
+                        ((CreateCampusEvent) parent).onFoodSet(item);
 
                     }
                 };
@@ -342,7 +342,7 @@ public class DialogFragment extends android.app.DialogFragment {
 
             case DIALOG_ID_FILTER_FOOD:
 
-                builder.setTitle("Will there be food?");
+                builder.setTitle("Does there need to be food?");
                 DialogInterface.OnClickListener dlistener8 = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         ((FilterWindow) parent).onFoodSet(item);

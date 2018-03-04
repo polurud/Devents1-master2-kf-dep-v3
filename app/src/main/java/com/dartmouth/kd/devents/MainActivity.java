@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity  {
                 event.setmYear(0);
                 event.setmProgramType(0);
                 event.setmEventType(0);
-                event.setmFood(0);
+                event.setmFood(2);
                 mEventDbHelper = new CampusEventDbHelper(mcontext);
 
                 new InsertIntoDbTask().execute(event);

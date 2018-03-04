@@ -188,8 +188,7 @@ public class CreateCampusEvent extends FragmentActivity {
         new InsertIntoDbTask().execute(newEvent);
         Log.i(TAG, "Showing lat3 " + newEvent.getmLatitude());
         Log.i(TAG, "Showing long3" + newEvent.getmLongitude());
-        EventUploader eu = new EventUploader(this);
-        //eu.syncBackend(newEvent);
+
         finish();
     }
 
@@ -279,7 +278,7 @@ public class CreateCampusEvent extends FragmentActivity {
         @Override
         protected String doInBackground(CampusEvent... exerciseEntries) {
             long id = mEventDbHelper.insertEntry(exerciseEntries[0]);
-
+            fbHelper(id);
             return ""+id;
             // Pop up a toast
 
@@ -290,6 +289,12 @@ public class CreateCampusEvent extends FragmentActivity {
             Toast.makeText(getApplicationContext(), "Event #" + result + " saved.", Toast.LENGTH_SHORT)
                     .show();
         }
+
+    }
+
+    public void fbHelper(long id){
+        EventUploader eu = new EventUploader(this);
+        eu.syncBackend(id);
 
     }
 }
