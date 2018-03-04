@@ -138,7 +138,6 @@ public class CreateCampusEvent extends FragmentActivity {
                         dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_YEAR;
                         break;
                     case LIST_ITEM_ID_MAJOR:
-                        Log.d(Globals.TAGG, "in major create campus event ");
                         dialogId2 = DialogFragment.DIALOG_ID_MANUAL_INPUT_MAJOR;
                         break;
                     case LIST_ITEM_ID_GREEK_SOCIETY:
@@ -189,8 +188,8 @@ public class CreateCampusEvent extends FragmentActivity {
         new InsertIntoDbTask().execute(newEvent);
         Log.i(TAG, "Showing lat3 " + newEvent.getmLatitude());
         Log.i(TAG, "Showing long3" + newEvent.getmLongitude());
-        //EventUploader eu = new EventUploader(this);
-        //eu.syncBackend();
+        EventUploader eu = new EventUploader(this);
+        //eu.syncBackend(newEvent);
         finish();
     }
 

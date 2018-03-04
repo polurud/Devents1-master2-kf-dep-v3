@@ -52,11 +52,11 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             + KEY_TITLE
             + " TEXT, "
             + KEY_DATE
-            + " DATETIME NOT NULL, "
+            + " TEXT, "
             + KEY_START
-            + " DATETIME NOT NULL, "
+            + " TEXT, "
             + KEY_END
-            + " DATETIME NOT NULL, "
+            + " TEXT, "
             + KEY_LOCATION
             + " TEXT, "
             + KEY_DESCRIPTION
@@ -100,6 +100,11 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
 
+    }
+
+    public void deleteAllEvents() {
+        SQLiteDatabase dbObj = getWritableDatabase();
+        dbObj.delete(CampusEventDbHelper.TABLE_EVENT_ENTRIES, null, null);
     }
 
     // Insert a item given each column value
@@ -180,14 +185,13 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     private CampusEvent cursorToEvent(Cursor cursor) {
         CampusEvent event = new CampusEvent();
         event.setmId(cursor.getLong(cursor.getColumnIndex(KEY_ROWID)));
-        event.setmDateTime(cursor.getLong(cursor.getColumnIndex(KEY_DATE)));
+        event.setmDateTime(cursor.getString(cursor.getColumnIndex(KEY_DATE)));
         event.setmTitle(cursor.getString(cursor.getColumnIndex(KEY_TITLE)));
-        event.setmStart(cursor.getLong(cursor.getColumnIndex(KEY_START)));
-        event.setmEnd(cursor.getLong(cursor.getColumnIndex(KEY_END)));
+        event.setmStart(cursor.getString(cursor.getColumnIndex(KEY_START)));
+        event.setmEnd(cursor.getString(cursor.getColumnIndex(KEY_END)));
         event.setmLocation(cursor.getString(cursor.getColumnIndex(KEY_LOCATION)));
         event.setmDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
         event.setmUrl(cursor.getString(cursor.getColumnIndex(KEY_URL)));
-        //Long location = cursor.getColumnIndex(KEY_LOCATION_PIN);
         event.setmLatitude(cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)));
         event.setmLongitude(cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)));
         event.setmFood(cursor.getInt(cursor.getColumnIndex(KEY_FOOD)));

@@ -20,9 +20,9 @@ public class CampusEvent {
     private String mTitle;
     private String mLocation;
     private String mDescription;
-    private Calendar mDate;
-    private Calendar mStart;
-    private Calendar mEnd;
+    private String mDate;
+    private String mStart;
+    private String mEnd;
     private String mUrl;
     private Double mLatitude;
     private Double mLongitude;
@@ -38,9 +38,9 @@ public class CampusEvent {
         this.mTitle = "";
         this.mLocation = "";
         this.mDescription = "";
-        this.mDate = Calendar.getInstance();
-        this.mStart = Calendar.getInstance();
-        this.mEnd = Calendar.getInstance();
+        this.mDate = "";
+        this.mStart = "";
+        this.mEnd = "";
         this.mUrl = "";
         this.mLatitude = null;
         this.mLongitude = null;
@@ -103,64 +103,74 @@ public class CampusEvent {
         this.mDescription = description;
     }
 
-    @Exclude
-    public Calendar getmDate() {
+    //@Exclude
+    public String getmDate() {
         return mDate;
     }
 
     public void setmDate(int year, int monthOfYear, int dayOfMonth) {
-        mDate.set(year, monthOfYear, dayOfMonth);
+        Calendar date = Calendar.getInstance();
+        date.set(year, monthOfYear, dayOfMonth);
+        date.toString();
+        mDate = date.toString();
     }
 
     public long getmDateTimeInMillis() {
-        return mDate.getTimeInMillis();
+        long mDate = 0;
+        return mDate;
     }
 
 
     public void setmDateTime(Calendar dateTime) {
-        this.mDate = dateTime;
+        //this.mDate = dateTime;
 
     }
 
     public void setmDateTime(long timestamp) {
-        this.mDate.setTimeInMillis(timestamp);
+
+        //this.mDate.setTimeInMillis(timestamp);
     }
 
 
     public void setmStart(int hourOfDay, int minute) {
-        mStart.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        mStart.set(Calendar.MINUTE, minute);
-        mStart.set(Calendar.SECOND, 0);
+        Calendar date = Calendar.getInstance();
+        mStart = date.toString();
+        //mStart.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        //mStart.set(Calendar.MINUTE, minute);
+        //mStart.set(Calendar.SECOND, 0);
     }
 
-    public void setmStart(long timestamp){
-        this.mDate.setTimeInMillis(timestamp);
+    public void setmStart(String start){
+        this.mStart = start;
+        //this.mDate.setTimeInMillis(timestamp);
     }
 
-    //public void setmDate(String date){
-     //   this.mDate = date;
-    //}
+    public void setmDateTime(String date){
+        this.mDate = date;
+    }
 
     //public void setmDate(String d
 
-    @Exclude
-    public Calendar getmStart() {
+    //@Exclude
+    public String getmStart() {
         return mStart;
     }
 
 
     public void setmEnd(int hourOfDay, int minute) {
-        mEnd.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        mEnd.set(Calendar.MINUTE, minute);
-        mEnd.set(Calendar.SECOND, 0);
+        Calendar date = Calendar.getInstance();
+        mEnd = date.toString();
+        //mEnd.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        //mEnd.set(Calendar.MINUTE, minute);
+        //mEnd.set(Calendar.SECOND, 0);
     }
 
-    public void setmEnd(long timestamp){
-        this.mDate.setTimeInMillis(timestamp);
+    public void setmEnd(String end){
+        this.mEnd = end;
     }
 
-    @Exclude
-    public Calendar getmEnd() {
+    //@Exclude
+    public String getmEnd() {
         return mEnd;
     }
 

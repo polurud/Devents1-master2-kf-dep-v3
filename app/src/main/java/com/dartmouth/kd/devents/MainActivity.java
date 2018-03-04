@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity  {
         firebaseUser = firebaseAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("masterSheet");
         mcontext = this;
+        mEventDbHelper = new CampusEventDbHelper(mcontext);
+        mEventDbHelper.deleteAllEvents();
+
         //databaseReference = FirebaseDatabase.getInstance().getReference();
 
         //if(firebaseUser == null) {
@@ -92,8 +96,8 @@ public class MainActivity extends AppCompatActivity  {
                 event.setmTitle(singleRun.get("Title").toString());
                 event.setmLocation(singleRun.get("Location").toString());
                 event.setmDate(0, 0, 0);
-                event.setmEnd(0);
-                event.setmStart(0);
+                event.setmEnd(singleRun.get("End").toString());
+                event.setmStart(singleRun.get("Start").toString());
                 //event.setmDate(singleRun.get("Date").toString());
                 //event.setmEnd(singleRun.get("End").toString());
                 //event.setmStart(singleRun.get("Start").toString());
@@ -114,11 +118,12 @@ public class MainActivity extends AppCompatActivity  {
                 event.setmEventType(0);
                 event.setmFood(0);
                 mEventDbHelper = new CampusEventDbHelper(mcontext);
+
                 new InsertIntoDbTask().execute(event);
                 //eventlist.add(event);
             }
-                Log.d("Data.....", String.valueOf(eventlist.size()));
-                Log.d("Data.....First Value", String.valueOf(eventlist.get(0)));
+                //Log.d("Data.....", String.valueOf(eventlist.size()));
+                //Log.d("Data.....First Value", String.valueOf(eventlist.get(0)));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
