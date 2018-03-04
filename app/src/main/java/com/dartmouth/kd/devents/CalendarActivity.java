@@ -71,8 +71,8 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
         window = new FilterWindow();
         currFilters = window.getCurrentFilters();
 
-        EventUploader eu = new EventUploader(mContext);
-        eu.syncBackend();
+        //EventUploader eu = new EventUploader(mContext);
+        //eu.syncBackend();
 
         // Open data base for operations.
         mCampusEventDbHelper = new CampusEventDbHelper(mContext);
@@ -149,14 +149,14 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
     public void onLoadFinished(Loader<ArrayList<CampusEvent>> loader, ArrayList<CampusEvent> campusEvents) {
         CampusEventDbHelper dbh = new CampusEventDbHelper(mContext);
 
-        FilterDbHelper fdbh = new FilterDbHelper(mContext);
+        /*FilterDbHelper fdbh = new FilterDbHelper(mContext);
         currFilters = fdbh.getLastUsedFilter();
          //currFilters = window.getCurrentFilters();
         Log.d(Globals.TAGG, "Are current filters null?" + currFilters);
         ArrayList<CampusEvent> newList = dbh.eventListFilter(campusEvents, currFilters);
         Log.d(Globals.TAGG, "Showing what is in new list" + newList);
-        eventsList = newList;
-        //eventsList = campusEvents;
+        eventsList = newList;*/
+        eventsList = campusEvents;
         mAdapter.clear();
         Log.d("TAGG", "Load Finished");
 

@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class FilterDbHelper extends SQLiteOpenHelper {
     // Database name string
-    public static final String DATABASE_NAME = "CampusEventsDB";
+    public static final String DATABASE_NAME = "FiltersDB";
     // Table name string. (Only one table)
-    private static final String TABLE_EVENT_ENTRIES = "EVENTS";
+    private static final String TABLE_FILTERS = "FILTERS";
 
     // Version code
     private static final int DATABASE_VERSION = 1;
@@ -35,8 +35,8 @@ public class FilterDbHelper extends SQLiteOpenHelper {
 
     // SQL query to create the table for the first time
     // Data types are defined below
-    private static final String CREATE_TABLE_ENTRIES = "CREATE TABLE IF NOT EXISTS "
-            + TABLE_EVENT_ENTRIES
+    private static final String CREATE_TABLE_FILTERS = "CREATE TABLE IF NOT EXISTS "
+            + TABLE_FILTERS
             + "("
             + KEY_ROWID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -66,7 +66,7 @@ public class FilterDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_ENTRIES);
+        db.execSQL(CREATE_TABLE_FILTERS);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class FilterDbHelper extends SQLiteOpenHelper {
         value.put(KEY_GENDER, filter.getfGender());
         value.put(KEY_GREEK_SOCIETY, filter.getfGreekSociety());
         SQLiteDatabase dbObj = getWritableDatabase();
-        long id = dbObj.insert(TABLE_EVENT_ENTRIES, null, value);
+        long id = dbObj.insert(TABLE_FILTERS, null, value);
         dbObj.close();
         return id;
     }
@@ -94,7 +94,7 @@ public class FilterDbHelper extends SQLiteOpenHelper {
     // Remove a entry by giving its index
     public void removeFilter(long rowIndex) {
         SQLiteDatabase dbObj = getWritableDatabase();
-        dbObj.delete(TABLE_EVENT_ENTRIES, KEY_ROWID + "=" + rowIndex, null);
+        dbObj.delete(TABLE_FILTERS, KEY_ROWID + "=" + rowIndex, null);
         dbObj.close();
     }
 
@@ -104,7 +104,7 @@ public class FilterDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase dbObj = getReadableDatabase();
         Filters filter = null;
 
-        Cursor cursor = dbObj.query(true, TABLE_EVENT_ENTRIES, mColumnList,
+        Cursor cursor = dbObj.query(true, TABLE_FILTERS, mColumnList,
                 KEY_ROWID + "=" + rowId, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
@@ -124,7 +124,7 @@ public class FilterDbHelper extends SQLiteOpenHelper {
         if (filtersList == null){
             return null;
         }else {
-            Cursor cursor = dbObj.query(TABLE_EVENT_ENTRIES, mColumnList, null,
+            Cursor cursor = dbObj.query(TABLE_FILTERS, mColumnList, null,
                     null, null, null, null);
             Filters filter = null;
             while (cursor.moveToNext()) {
@@ -144,7 +144,7 @@ public class FilterDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase dbObj = getReadableDatabase();
         ArrayList<Filters> filtersList = new ArrayList<Filters>();
 
-        Cursor cursor = dbObj.query(TABLE_EVENT_ENTRIES, mColumnList, null,
+        Cursor cursor = dbObj.query(TABLE_FILTERS, mColumnList, null,
                 null, null, null, null);
 
         while (cursor.moveToNext()) {

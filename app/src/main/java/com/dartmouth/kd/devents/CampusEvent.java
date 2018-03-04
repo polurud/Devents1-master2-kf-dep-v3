@@ -137,6 +137,12 @@ public class CampusEvent {
         this.mDate.setTimeInMillis(timestamp);
     }
 
+    //public void setmDate(String date){
+     //   this.mDate = date;
+    //}
+
+    //public void setmDate(String d
+
     @Exclude
     public Calendar getmStart() {
         return mStart;

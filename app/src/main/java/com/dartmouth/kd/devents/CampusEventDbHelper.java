@@ -19,28 +19,28 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "CampusEventsDB";
     // Table name string. (Only one table)
     private static final String TABLE_EVENT_ENTRIES = "EVENTS";
-
+    private SQLiteDatabase dbObj;
     // Version code
     private static final int DATABASE_VERSION = 1;
 
     // Table schema, column names
     public static final String KEY_ROWID = "_id";
-    public static final String KEY_TITLE = "event_title";
-    public static final String KEY_DATE = "event_date";
-    public static final String KEY_START = "event_start";
-    public static final String KEY_END = "event_end";
-    public static final String KEY_LOCATION = "event_location";
-    public static final String KEY_DESCRIPTION = "event_description";
-    public static final String KEY_URL = "event_url";
-    public static final String KEY_LATITUDE = "event_lat";
-    public static final String KEY_LONGITUDE = "event_long";
-    public static final String KEY_FOOD = "event_food";
-    public static final String KEY_MAJOR = "event_major";
-    public static final String KEY_EVENT_TYPE = "e_event_type";
-    public static final String KEY_PROGRAM_TYPE = "event_program_type";
-    public static final String KEY_YEAR = "event_year";
-    public static final String KEY_GREEK_SOCIETY = "event_greek_society";
-    public static final String KEY_GENDER = "event_gender";
+    public static final String KEY_TITLE = "Title";
+    public static final String KEY_DATE = "Date";
+    public static final String KEY_START = "Start";
+    public static final String KEY_END = "End";
+    public static final String KEY_LOCATION = "Location";
+    public static final String KEY_DESCRIPTION = "Description";
+    public static final String KEY_URL = "URL";
+    public static final String KEY_LATITUDE = "Latitude";
+    public static final String KEY_LONGITUDE = "Longitude";
+    public static final String KEY_FOOD = "Food";
+    public static final String KEY_MAJOR = "Major";
+    public static final String KEY_EVENT_TYPE = "Event_Type";
+    public static final String KEY_PROGRAM_TYPE = "Program_Type";
+    public static final String KEY_YEAR = "Year";
+    public static final String KEY_GREEK_SOCIETY = "Greek_Society";
+    public static final String KEY_GENDER = "Gender";
 
     // SQL query to create the table for the first time
     // Data types are defined below
@@ -126,7 +126,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
         value.put(KEY_MAJOR, event.getmMajor());
         value.put(KEY_GENDER, event.getmGender());
         value.put(KEY_GREEK_SOCIETY, event.getmGreekSociety());
-        SQLiteDatabase dbObj = getWritableDatabase();
+        dbObj = getWritableDatabase();
         long id = dbObj.insert(TABLE_EVENT_ENTRIES, null, value);
         dbObj.close();
         return id;
@@ -149,7 +149,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
                 KEY_ROWID + "=" + rowId, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            event = cursorToEvent(cursor, true);
+            event = cursorToEvent(cursor);
         }
 
         cursor.close();
@@ -167,7 +167,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
                 null, null, null, null);
 
         while (cursor.moveToNext()) {
-            CampusEvent event = cursorToEvent(cursor, false);
+            CampusEvent event = cursorToEvent(cursor);
             entryList.add(event);
         }
 
@@ -177,7 +177,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
         return entryList;
     }
 
-    private CampusEvent cursorToEvent(Cursor cursor, boolean needGps) {
+    private CampusEvent cursorToEvent(Cursor cursor) {
         CampusEvent event = new CampusEvent();
         event.setmId(cursor.getLong(cursor.getColumnIndex(KEY_ROWID)));
         event.setmDateTime(cursor.getLong(cursor.getColumnIndex(KEY_DATE)));
