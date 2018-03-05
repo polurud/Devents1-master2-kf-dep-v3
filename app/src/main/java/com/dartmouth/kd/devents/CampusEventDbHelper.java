@@ -90,7 +90,10 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
     public CampusEventDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -112,25 +115,25 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
         ContentValues value = new ContentValues();
 
-        value.put(KEY_TITLE, event.getmTitle());
-        value.put(KEY_DATE, event.getmDateTimeInMillis());
+        value.put(KEY_TITLE, event.getTitle());
+        value.put(KEY_DATE, event.getDate());
 
         //THIS NEEDS TO BE CHANGED
-        value.put(KEY_START, event.getmDateTimeInMillis());
-        value.put(KEY_END, event.getmDateTimeInMillis());
+        value.put(KEY_START, event.getmStart());
+        value.put(KEY_END, event.getmEnd());
 
-        value.put(KEY_LOCATION, event.getmLocation());
-        value.put(KEY_DESCRIPTION, event.getmDescription());
-        value.put(KEY_URL, event.getmUrl());
-        value.put(KEY_LATITUDE, event.getmLatitude());
-        value.put(KEY_LONGITUDE, event.getmLongitude());
-        value.put(KEY_FOOD, event.getmFood());
-        value.put(KEY_EVENT_TYPE, event.getmEventType());
-        value.put(KEY_PROGRAM_TYPE, event.getmProgramType());
-        value.put(KEY_YEAR, event.getmYear());
-        value.put(KEY_MAJOR, event.getmMajor());
-        value.put(KEY_GENDER, event.getmGender());
-        value.put(KEY_GREEK_SOCIETY, event.getmGreekSociety());
+        value.put(KEY_LOCATION, event.getLocation());
+        value.put(KEY_DESCRIPTION, event.getDescription());
+        value.put(KEY_URL, event.getURL());
+        value.put(KEY_LATITUDE, event.getLatitude());
+        value.put(KEY_LONGITUDE, event.getLongitude());
+        value.put(KEY_FOOD, event.getFood());
+        value.put(KEY_EVENT_TYPE, event.getEventType());
+        value.put(KEY_PROGRAM_TYPE, event.getProgramType());
+        value.put(KEY_YEAR, event.getYear());
+        value.put(KEY_MAJOR, event.getMajor());
+        value.put(KEY_GENDER, event.getGender());
+        value.put(KEY_GREEK_SOCIETY, event.getGreekSociety());
         dbObj = getWritableDatabase();
         long id = dbObj.insert(TABLE_EVENT_ENTRIES, null, value);
         dbObj.close();
@@ -185,22 +188,22 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
     private CampusEvent cursorToEvent(Cursor cursor) {
         CampusEvent event = new CampusEvent();
         event.setmId(cursor.getLong(cursor.getColumnIndex(KEY_ROWID)));
-        event.setmDateTime(cursor.getString(cursor.getColumnIndex(KEY_DATE)));
-        event.setmTitle(cursor.getString(cursor.getColumnIndex(KEY_TITLE)));
-        event.setmStart(cursor.getString(cursor.getColumnIndex(KEY_START)));
-        event.setmEnd(cursor.getString(cursor.getColumnIndex(KEY_END)));
-        event.setmLocation(cursor.getString(cursor.getColumnIndex(KEY_LOCATION)));
-        event.setmDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
-        event.setmUrl(cursor.getString(cursor.getColumnIndex(KEY_URL)));
-        event.setmLatitude(cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)));
-        event.setmLongitude(cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)));
-        event.setmFood(cursor.getInt(cursor.getColumnIndex(KEY_FOOD)));
-        event.setmMajor(cursor.getInt(cursor.getColumnIndex(KEY_MAJOR)));
-        event.setmEventType(cursor.getInt(cursor.getColumnIndex(KEY_EVENT_TYPE)));
-        event.setmProgramType(cursor.getInt(cursor.getColumnIndex(KEY_PROGRAM_TYPE)));
-        event.setmYear(cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
-        event.setmGreekSociety(cursor.getInt(cursor.getColumnIndex(KEY_GREEK_SOCIETY)));
-        event.setmGender(cursor.getInt(cursor.getColumnIndex(KEY_GENDER)));
+        event.setDateTime(cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+        event.setTitle(cursor.getString(cursor.getColumnIndex(KEY_TITLE)));
+        event.setStart(cursor.getString(cursor.getColumnIndex(KEY_START)));
+        event.setEnd(cursor.getString(cursor.getColumnIndex(KEY_END)));
+        event.setLocation(cursor.getString(cursor.getColumnIndex(KEY_LOCATION)));
+        event.setDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
+        event.setURL(cursor.getString(cursor.getColumnIndex(KEY_URL)));
+        event.setLatitude(cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)));
+        event.setLongitude(cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE)));
+        event.setFood(cursor.getInt(cursor.getColumnIndex(KEY_FOOD)));
+        event.setMajor(cursor.getInt(cursor.getColumnIndex(KEY_MAJOR)));
+        event.setEventType(cursor.getInt(cursor.getColumnIndex(KEY_EVENT_TYPE)));
+        event.setProgramType(cursor.getInt(cursor.getColumnIndex(KEY_PROGRAM_TYPE)));
+        event.setYear(cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
+        event.setGreekSociety(cursor.getInt(cursor.getColumnIndex(KEY_GREEK_SOCIETY)));
+        event.setGender(cursor.getInt(cursor.getColumnIndex(KEY_GENDER)));
         return event;
     }
 
@@ -221,7 +224,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             if (filter.getfFood() != 0) {
                 for (CampusEvent event : campusEvents) {
                     int scaleval = filter.getfFood() - 1;
-                    if (event.getmFood() == scaleval) {
+                    if (event.getFood() == scaleval) {
                         newList.add(event);
                     }
                 }
@@ -229,7 +232,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             if (filter.getfEventType() != 0) {
                 for (CampusEvent event : campusEvents) {
                     int scaleval = filter.getfEventType() - 1;
-                    if (event.getmEventType() == scaleval) {
+                    if (event.getEventType() == scaleval) {
                         newList.add(event);
                     }
                 }
@@ -237,7 +240,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
             if (filter.getfProgramType() != 0) {
                 for (CampusEvent event : campusEvents) {
-                    if (event.getmProgramType() == filter.getfProgramType()) {
+                    if (event.getProgramType() == filter.getfProgramType()) {
                         newList.add(event);
                     }
                 }
@@ -245,7 +248,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
             if (filter.getfYear() != 0) {
                 for (CampusEvent event : campusEvents) {
-                    if (event.getmYear() == filter.getfYear()) {
+                    if (event.getYear() == filter.getfYear()) {
                         newList.add(event);
                     }
                 }
@@ -253,7 +256,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
             if (filter.getfMajor() != 0) {
                 for (CampusEvent event : campusEvents) {
-                    if (event.getmMajor() == filter.getfMajor()) {
+                    if (event.getMajor() == filter.getfMajor()) {
                         newList.add(event);
                     }
                 }
@@ -261,7 +264,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
             if (filter.getfGender() != 0) {
                 for (CampusEvent event : campusEvents) {
-                    if (event.getmGender() == filter.getfGender()) {
+                    if (event.getGender() == filter.getfGender()) {
                         newList.add(event);
                     }
                 }
@@ -269,7 +272,7 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
 
             if (filter.getfGreekSociety() != 0) {
                 for (CampusEvent event : campusEvents) {
-                    if (event.getmGreekSociety() == filter.getfGreekSociety()) {
+                    if (event.getGreekSociety() == filter.getfGreekSociety()) {
                         newList.add(event);
                     }
                 }

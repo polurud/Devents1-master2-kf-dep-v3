@@ -210,13 +210,13 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
             CampusEvent event = getItem(position);
 
             //parse data to readable format
-            String title = event.getmTitle();
+            String title = event.getTitle();
 
-            String dateString = Utils.parseDate(event.getmDateTimeInMillis(),
+            String dateString = Utils.parseDate(event.getDateTimeInMillis(),
                     mContext);
-            String startString = Utils.parseStart(event.getmDateTimeInMillis(),
+            String startString = Utils.parseStart(event.getDateTimeInMillis(),
                     mContext);
-            String endString = Utils.parseEnd(event.getmDateTimeInMillis(),
+            String endString = Utils.parseEnd(event.getDateTimeInMillis(),
                     mContext);
 
             // Set text on the view.
@@ -242,24 +242,24 @@ public class CalendarActivity extends ListFragment implements LoaderManager.Load
         // Write row id into extras.
         extras.putLong(Globals.KEY_ROWID, event.getmId());
         // Passing information for display in the DisaplayEntryActivity.
-        extras.putString(Globals.KEY_TITLE,event.getmTitle());
+        extras.putString(Globals.KEY_TITLE,event.getTitle());
         extras.putString(Globals.KEY_DATE,
-                Utils.parseDate(event.getmDateTimeInMillis(), mContext));
+                Utils.parseDate(event.getDateTimeInMillis(), mContext));
         extras.putString(Globals.KEY_START,
-                Utils.parseStart(event.getmDateTimeInMillis(), mContext));
+                Utils.parseStart(event.getDateTimeInMillis(), mContext));
         extras.putString(Globals.KEY_END,
-                Utils.parseEnd(event.getmDateTimeInMillis(), mContext));
-        extras.putString(Globals.KEY_LOCATION,event.getmLocation());
-        extras.putString(Globals.KEY_DESCRIPTION,event.getmDescription());
-        extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
-        extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
-        extras.putInt(Globals.KEY_FOOD, event.getmFood());
-        extras.putInt(Globals.KEY_MAJOR,event.getmMajor());
-        extras.putInt(Globals.KEY_EVENT_TYPE,event.getmEventType());
-        extras.putInt(Globals.KEY_PROGRAM_TYPE,event.getmProgramType());
-        extras.putInt(Globals.KEY_YEAR,event.getmYear());
-        extras.putInt(Globals.KEY_GREEK_SOCIETY,event.getmGreekSociety());
-        extras.putInt(Globals.KEY_GENDER,event.getmGender());
+                Utils.parseEnd(event.getDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_LOCATION,event.getLocation());
+        extras.putString(Globals.KEY_DESCRIPTION,event.getDescription());
+        extras.putDouble(Globals.KEY_LATITUDE, event.getLatitude());
+        extras.putDouble(Globals.KEY_LONGITUDE, event.getLongitude());
+        extras.putInt(Globals.KEY_FOOD, event.getFood());
+        extras.putInt(Globals.KEY_MAJOR,event.getMajor());
+        extras.putInt(Globals.KEY_EVENT_TYPE,event.getEventType());
+        extras.putInt(Globals.KEY_PROGRAM_TYPE,event.getProgramType());
+        extras.putInt(Globals.KEY_YEAR,event.getYear());
+        extras.putInt(Globals.KEY_GREEK_SOCIETY,event.getGreekSociety());
+        extras.putInt(Globals.KEY_GENDER,event.getGender());
 
 
 

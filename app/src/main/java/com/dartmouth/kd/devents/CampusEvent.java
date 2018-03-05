@@ -1,13 +1,5 @@
 package com.dartmouth.kd.devents;
 
-import android.location.Location;
-
-import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.Exclude;
-
-import java.net.URL;
-import java.nio.DoubleBuffer;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -17,40 +9,40 @@ import java.util.Calendar;
 public class CampusEvent {
 
     private Long mId;
-    private String mTitle;
-    private String mLocation;
-    private String mDescription;
-    private String mDate;
-    private String mStart;
-    private String mEnd;
-    private String mUrl;
-    private Double mLatitude;
-    private Double mLongitude;
-    private int mFood;
-    private int mEventType;
-    private int mProgramType;
-    private int mYear;
-    private int mMajor;
-    private int mGreekSociety;
-    private int mGender;
+    private String Title;
+    private String Location;
+    private String Description;
+    private String Date;
+    private String Start;
+    private String End;
+    private String URL;
+    private Double Latitude;
+    private Double Longitude;
+    private int Food;
+    private int EventType;
+    private int ProgramType;
+    private int Year;
+    private int Major;
+    private int GreekSociety;
+    private int Gender;
 
     public CampusEvent(){
-        this.mTitle = "";
-        this.mLocation = "";
-        this.mDescription = "";
-        this.mDate = "";
-        this.mStart = "";
-        this.mEnd = "";
-        this.mUrl = "";
-        this.mLatitude = null;
-        this.mLongitude = null;
-        this.mFood = 0;
-        this.mEventType = 0;
-        this.mProgramType = 0;
-        this.mYear = 0;
-        this.mMajor = 0;
-        this.mGender = 0;
-        this.mGreekSociety=0;
+        this.Title = "";
+        this.Location = "";
+        this.Description = "";
+        this.Date = "";
+        this.Start = "";
+        this.End = "";
+        this.URL = "";
+        this.Latitude = null;
+        this.Longitude = null;
+        this.Food = 0;
+        this.EventType = 0;
+        this.ProgramType = 0;
+        this.Year = 0;
+        this.Major = 0;
+        this.Gender = 0;
+        this.GreekSociety=0;
 
 
     }
@@ -63,179 +55,159 @@ public class CampusEvent {
         this.mId = id;
     }
 
-    public String getmTitle() {
-        return mTitle;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setmTitle(String title) {
-        this.mTitle = title;
+    public void setTitle(String Title) {
+        this.Title = Title;
     }
 
-    public String getmLocation() {
-        return mLocation;
+    public String getLocation() {
+        return Location;
     }
 
-    public void setmLocation(String location) {
-        this.mLocation = location;
+    public void setLocation(String Location) {
+        this.Location = Location;
     }
 
-    public Double getmLatitude() {
-        return mLatitude;
+    public Double getLatitude() {
+        return Latitude;
     }
 
-    public void setmLatitude(Double latitude) {
-        this.mLatitude = latitude;
+    public void setLatitude(Double Latitude) {
+        this.Latitude = Latitude;
     }
 
-    public Double getmLongitude() {
-        return mLongitude;
+    public Double getLongitude() {
+        return Longitude;
     }
 
-    public void setmLongitude(Double longitude) {
-        this.mLongitude = longitude;
+    public void setLongitude(Double Longitude) {
+        this.Longitude = Longitude;
     }
 
-    public String getmDescription() {
-        return mDescription;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setmDescription(String description) {
-        this.mDescription = description;
+    public void setDescription(String Description) {
+        this.Description = Description;
     }
 
     //@Exclude
-    public String getmDate() {
-        return mDate;
+    public String getDate() {
+        return Date;
     }
 
-    public void setmDate(int year, int monthOfYear, int dayOfMonth) {
+    public void setDate(int year, int monthOfYear, int dayOfMonth) {
         Calendar date = Calendar.getInstance();
         date.set(year, monthOfYear, dayOfMonth);
-        date.toString();
-        mDate = date.toString();
+        Date = date.toString();
     }
 
-    public long getmDateTimeInMillis() {
+
+    public long getDateTimeInMillis() {
         long mDate = 0;
         return mDate;
     }
 
 
-    public void setmDateTime(Calendar dateTime) {
-        //this.mDate = dateTime;
-
-    }
-
-    public void setmDateTime(long timestamp) {
-
-        //this.mDate.setTimeInMillis(timestamp);
-    }
-
-
-    public void setmStart(int hourOfDay, int minute) {
+    public void setStart(int hourOfDay, int minute) {
         Calendar date = Calendar.getInstance();
-        mStart = date.toString();
-        //mStart.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        //mStart.set(Calendar.MINUTE, minute);
-        //mStart.set(Calendar.SECOND, 0);
+        date.set(0,0,0,hourOfDay,minute);
+        Start = date.toString();
     }
 
-    public void setmStart(String start){
-        this.mStart = start;
-        //this.mDate.setTimeInMillis(timestamp);
+    public void setStart(String start){
+        this.Start = start;
     }
 
-    public void setmDateTime(String date){
-        this.mDate = date;
+    public void setDateTime(String date){
+        this.Date = date;
     }
 
-    //public void setmDate(String d
-
-    //@Exclude
     public String getmStart() {
-        return mStart;
+        return Start;
     }
 
 
-    public void setmEnd(int hourOfDay, int minute) {
+    public void setEnd(int hourOfDay, int minute) {
         Calendar date = Calendar.getInstance();
-        mEnd = date.toString();
-        //mEnd.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        //mEnd.set(Calendar.MINUTE, minute);
-        //mEnd.set(Calendar.SECOND, 0);
+        date.set(0,0,0,hourOfDay,minute);
+        End = date.toString();
     }
 
-    public void setmEnd(String end){
-        this.mEnd = end;
+    public void setEnd(String end){
+        this.End = end;
     }
 
-    //@Exclude
     public String getmEnd() {
-        return mEnd;
+        return End;
     }
 
-    public String getmUrl() {
-        return mUrl;
+    public String getURL() {
+        return URL;
     }
 
-    public void setmUrl(String url) {
-        this.mUrl = url;
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
-    public int getmFood(){
-        return mFood;
+    public int getFood(){
+        return Food;
     }
 
-    public void setmFood(int food){
-        this.mFood = food;
+    public void setFood(int Food){
+        this.Food = Food;
     }
 
-    public int getmEventType() {
-        return mEventType;
+    public int getEventType() {
+        return EventType;
     }
 
-    public void setmEventType(int eventType) {
-        this.mEventType = eventType;
+    public void setEventType(int EventType) {
+        this.EventType = EventType;
     }
 
-    public int getmProgramType() {
-        return mProgramType;
+    public int getProgramType() {
+        return ProgramType;
     }
 
-    public void setmProgramType(int programType) {
-        this.mProgramType = programType;
+    public void setProgramType(int ProgramType) {
+        this.ProgramType = ProgramType;
     }
 
-    public int getmYear() {
-        return mYear;
+    public int getYear() {
+        return Year;
     }
 
-    public void setmYear(int year) {
-        this.mYear = year;
+    public void setYear(int Year) {
+        this.Year = Year;
     }
 
-    public int getmMajor() {
-        return mMajor;
+    public int getMajor() {
+        return Major;
     }
 
-    public void setmMajor(int major) {
-        this.mMajor = major;
+    public void setMajor(int Major) {
+        this.Major = Major;
     }
 
-    public int getmGreekSociety() {
-        return mGreekSociety;
+    public int getGreekSociety() {
+        return GreekSociety;
     }
 
-    public void setmGreekSociety(int greekSociety) {
-        this.mGreekSociety = greekSociety;
+    public void setGreekSociety(int GreekSociety) {
+        this.GreekSociety = GreekSociety;
     }
 
-    public int getmGender() {
-        return mGender;
+    public int getGender() {
+        return Gender;
     }
 
-    public void setmGender(int gender) {
-        this.mGender = gender;
+    public void setGender(int Gender) {
+        this.Gender = Gender;
     }
 
 }

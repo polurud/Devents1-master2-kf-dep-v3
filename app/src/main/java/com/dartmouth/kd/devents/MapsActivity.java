@@ -89,11 +89,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (CampusEvent event : allEvents) {
             long id = event.getmId();
             float fid = id;
-            double lat = event.getmLatitude();
+            double lat = event.getLatitude();
             Log.d(TAG, "lat getting set " + lat);
-            double longi = event.getmLongitude();
+            double longi = event.getLongitude();
             Log.d(TAG, "long getting set" + longi);
-            String mTitle = event.getmTitle();
+            String mTitle = event.getTitle();
             Marker mMarker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(lat, longi))
                     .title(mTitle));
@@ -149,18 +149,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Write row id into extras.
         extras.putLong(Globals.KEY_ROWID, event.getmId());
         // Passing information for display in the DisaplayEntryActivity.
-        extras.putString(Globals.KEY_TITLE,event.getmTitle());
+        extras.putString(Globals.KEY_TITLE,event.getTitle());
         extras.putString(Globals.KEY_DATE,
-                Utils.parseDate(event.getmDateTimeInMillis(), mContext));
+                Utils.parseDate(event.getDateTimeInMillis(), mContext));
         extras.putString(Globals.KEY_START,
-                Utils.parseStart(event.getmDateTimeInMillis(), mContext));
+                Utils.parseStart(event.getDateTimeInMillis(), mContext));
         extras.putString(Globals.KEY_END,
-                Utils.parseEnd(event.getmDateTimeInMillis(), mContext));
-        extras.putString(Globals.KEY_LOCATION,event.getmLocation());
-        extras.putString(Globals.KEY_DESCRIPTION,event.getmDescription());
-        extras.putString(Globals.KEY_URL,event.getmUrl());
-        extras.putDouble(Globals.KEY_LATITUDE, event.getmLatitude());
-        extras.putDouble(Globals.KEY_LONGITUDE, event.getmLongitude());
+                Utils.parseEnd(event.getDateTimeInMillis(), mContext));
+        extras.putString(Globals.KEY_LOCATION,event.getLocation());
+        extras.putString(Globals.KEY_DESCRIPTION,event.getDescription());
+        extras.putString(Globals.KEY_URL,event.getURL());
+        extras.putDouble(Globals.KEY_LATITUDE, event.getLatitude());
+        extras.putDouble(Globals.KEY_LONGITUDE, event.getLongitude());
 
 
         // Manual mode requires DisplayEntryActivity

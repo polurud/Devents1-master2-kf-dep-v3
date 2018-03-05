@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -41,6 +42,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+//import static com.dartmouth.kd.devents.Load_Urlevents.loadevent;
+
+//import static com.dartmouth.kd.devents.Load_Urlevents.loadevent;
+
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity  {
         mEventDbHelper = new CampusEventDbHelper(mcontext);
         mEventDbHelper.deleteAllEvents();
 
+
         //databaseReference = FirebaseDatabase.getInstance().getReference();
 
         //if(firebaseUser == null) {
@@ -75,17 +81,32 @@ public class MainActivity extends AppCompatActivity  {
         //}else{
             //userID = firebaseUser.getUid();
             //databaseReference = databaseReference.child("users").child(userID).child("items");
+
+
             Intent intent = new Intent(this, FunctionActivity.class);
             startActivity(intent);
+
+
+            Load_Urlevents  jsoupAsyncTask = new Load_Urlevents(this);
+            jsoupAsyncTask.execute();
+
+
+
+
         //}
 
+
     }
+
+
+
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+          databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                //eventlist = new ArrayList<>();
@@ -93,30 +114,27 @@ public class MainActivity extends AppCompatActivity  {
                 Map<String,Object> singleRun =  (Map<String, Object>) eventSnapshot.getValue();
 
                 CampusEvent event = new CampusEvent();
-                event.setmTitle(singleRun.get("Title").toString());
-                event.setmLocation(singleRun.get("Location").toString());
-                event.setmDate(0, 0, 0);
-                event.setmEnd(singleRun.get("End").toString());
-                event.setmStart(singleRun.get("Start").toString());
+                event.setTitle(singleRun.get("title").toString());
+                event.setLocation(singleRun.get("location").toString());
+                event.setDate(0, 0, 0);
+                event.setEnd(singleRun.get("mEnd").toString());
+                event.setStart(singleRun.get("mStart").toString());
                 //event.setmDate(singleRun.get("Date").toString());
-                //event.setmEnd(singleRun.get("End").toString());
-                //event.setmStart(singleRun.get("Start").toString());
-                event.setmUrl(singleRun.get("URL").toString());
-                event.setmDescription(singleRun.get("Description").toString());
-                //event.setmLongitude(singleRun.get("Longitude").toString());
-                //event.setmLatitude(singleRun.get("Latitude").toString());
-                //Double longi = (double) singleRun.get("Longitude");
-                double dub = 0;
-                event.setmLongitude(dub);
-                //Double lat = (double) singleRun.get("Latitude");
-                event.setmLatitude(dub);
-                event.setmGreekSociety(0);
-                event.setmMajor(0);
-                event.setmGender(0);
-                event.setmYear(0);
-                event.setmProgramType(0);
-                event.setmEventType(0);
-                event.setmFood(2);
+                //event.setEnd(singleRun.get("End").toString());
+                //event.setStart(singleRun.get("Start").toString());
+                event.setURL(singleRun.get("url").toString());
+                event.setDescription(singleRun.get("description").toString());
+                double lat = 43.7022;
+                double longi = 72.2896;
+                event.setLongitude(longi);
+                event.setLatitude(lat);
+                event.setGreekSociety(0);
+                event.setMajor(0);
+                event.setGender(0);
+                event.setYear(0);
+                event.setProgramType(0);
+                event.setEventType(0);
+                event.setFood(2);
                 mEventDbHelper = new CampusEventDbHelper(mcontext);
 
                 new InsertIntoDbTask().execute(event);
@@ -125,10 +143,10 @@ public class MainActivity extends AppCompatActivity  {
                 //Log.d("Data.....", String.valueOf(eventlist.size()));
                 //Log.d("Data.....First Value", String.valueOf(eventlist.get(0)));
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+              @Override
+              public void onCancelled(DatabaseError databaseError) {
+              }
+          });
     }
 
 

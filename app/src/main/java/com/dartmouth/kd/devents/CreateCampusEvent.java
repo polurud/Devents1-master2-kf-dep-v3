@@ -166,8 +166,8 @@ public class CreateCampusEvent extends FragmentActivity {
                 Log.i(TAG, "Place: " + place.getName());
                 myLocation = place;
                 LatLng latlng1 = myLocation.getLatLng();
-                newEvent.setmLatitude(latlng1.latitude);
-                newEvent.setmLongitude(latlng1.longitude);
+                newEvent.setLatitude(latlng1.latitude);
+                newEvent.setLongitude(latlng1.longitude);
                 Log.i(TAG, "Showing lat " + latlng1.latitude);
                 Log.i(TAG, "Showing long " + latlng1.longitude);
 
@@ -186,8 +186,8 @@ public class CreateCampusEvent extends FragmentActivity {
     public void onSaveClicked(View v) {
 
         new InsertIntoDbTask().execute(newEvent);
-        Log.i(TAG, "Showing lat3 " + newEvent.getmLatitude());
-        Log.i(TAG, "Showing long3" + newEvent.getmLongitude());
+        Log.i(TAG, "Showing lat3 " + newEvent.getLatitude());
+        Log.i(TAG, "Showing long3" + newEvent.getLongitude());
 
         finish();
     }
@@ -211,73 +211,74 @@ public class CreateCampusEvent extends FragmentActivity {
 
 
     public void onTitleSet(String title) {
-        newEvent.setmTitle(title);
+        newEvent.setTitle(title);
     }
 
     public void onLocationSet(String location) {
-        newEvent.setmLocation(location);
+        newEvent.setLocation(location);
     }
 
     public void onLongitudeSet(Double longitude) {
-        newEvent.setmLongitude(longitude);
+        newEvent.setLongitude(longitude);
     }
     public void onLatitudeSet(Double latitude) {
-        newEvent.setmLatitude(latitude);
+        newEvent.setLatitude(latitude);
     }
 
     public void onDescriptionSet(String description) {
-        newEvent.setmDescription(description);
+        newEvent.setDescription(description);
     }
 
     public void onUrlSet(String url) {
-        newEvent.setmUrl(url);
+        newEvent.setURL(url);
     }
 
     public void onDateSet(int year, int monthOfYear, int dayOfMonth) {
-        newEvent.setmDate(year, monthOfYear, dayOfMonth);
+        newEvent.setDate(year, monthOfYear, dayOfMonth);
     }
 
     public void onStartSet(int hourOfDay, int minute) {
-        newEvent.setmStart(hourOfDay, minute);
+        newEvent.setStart(hourOfDay, minute);
     }
 
     public void onEndSet(int hourOfDay, int minute) {
-        newEvent.setmEnd(hourOfDay, minute);
+        newEvent.setEnd(hourOfDay, minute);
     }
 
 
     public void onEventTypeSet(int eventType) {
-        newEvent.setmEventType(eventType);
+        newEvent.setEventType(eventType);
     }
 
     public void onProgramTypeSet(int programType) {
-        newEvent.setmProgramType(programType);
+        newEvent.setProgramType(programType);
     }
 
     public void onMajorSet(int major) {
-        newEvent.setmMajor(major);
+        newEvent.setMajor(major);
     }
 
     public void onGenderSet(int gender) {
-        newEvent.setmGender(gender);
+        newEvent.setGender(gender);
     }
 
     public void onGreekSocietySet(int greekSociety) {
-        newEvent.setmGreekSociety(greekSociety);
+        newEvent.setGreekSociety(greekSociety);
     }
 
     public void onYearSet(int year) {
-        newEvent.setmYear(year);
+        newEvent.setYear(year);
     }
 
     public void onFoodSet(int food) {
-        newEvent.setmFood(food);
+        newEvent.setFood(food);
     }
 
     public class InsertIntoDbTask extends AsyncTask<CampusEvent, Void, String> {
         @Override
         protected String doInBackground(CampusEvent... exerciseEntries) {
             long id = mEventDbHelper.insertEntry(exerciseEntries[0]);
+
             fbHelper(id);
             return ""+id;
             // Pop up a toast
