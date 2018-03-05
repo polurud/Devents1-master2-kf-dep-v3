@@ -48,9 +48,9 @@ public class CampusEventDbHelper extends SQLiteOpenHelper {
             + TABLE_EVENT_ENTRIES
             + "("
             + KEY_ROWID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + " INTEGER AUTOINCREMENT, "
             + KEY_TITLE
-            + " TEXT, "
+            + " TEXT PRIMARY KEY, "
             + KEY_DATE
             + " TEXT, "
             + KEY_START

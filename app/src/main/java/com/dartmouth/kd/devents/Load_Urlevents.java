@@ -223,16 +223,6 @@ import java.util.List;
                 campus_event.setStart(finalList.get(2));
                 campus_event.setEnd(finalList.get(3));
 
-//                String day = finalList.get(4);
-//
-//                String year =  day.substring(day.length()-4,day.length());
-//
-//                String month = day.substring(day.indexOf(","), )
-//
-//                int year, int monthOfYear, int dayOfMonth)
-
-
-
                 campus_event.setDateTime(finalList.get(4));
                 campus_event.setDescription(finalList.get(5));
                 campus_event.setLocation(finalList.get(6));
@@ -244,13 +234,18 @@ import java.util.List;
 //                campus_Eventdata.add(campus_event);
 
                 CampusEventDbHelper campusdb = new CampusEventDbHelper(mcontext);
-                long id = campusdb.insertEntry(campus_event);
-                Log.d("inserttinDB1", "inserttinDB1");
 
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("masterSheet");
-                //String key = mDatabase.push().getKey();
-                String idString = String.valueOf(id);
-                rootRef.child(idString).setValue(campus_event);
+                try {
+                    long id = campusdb.insertEntry(campus_event);
+                    Log.d("inserttinDB1", "inserttinDB1");
+
+                    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("masterSheet");
+                    //String key = mDatabase.push().getKey();
+                    String idString = String.valueOf(id);
+                    rootRef.child(idString).setValue(campus_event);
+                }
+                catch (Exception e)
+                {}
 
 
                 //push onto firebase
